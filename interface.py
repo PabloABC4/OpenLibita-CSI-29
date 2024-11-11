@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-import api
+import backend
 
 def show_books():
-    books = api.get_books()
+    books = backend.get_books()
     if isinstance(books, str):
         messagebox.showerror("Erro", books)
         return
@@ -41,7 +41,7 @@ def add_book():
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
 
-        result = api.add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao)
+        result = backend.add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao)
         if isinstance(result, str):
             messagebox.showerror("Erro", result)
         else:
@@ -76,7 +76,7 @@ def remove_book():
             messagebox.showerror("Erro", "ID do Livro é obrigatório.")
             return
 
-        result = api.remove_book(book_id)
+        result = backend.remove_book(book_id)
         if isinstance(result, str):
             messagebox.showerror("Erro", result)
         else:
