@@ -79,12 +79,25 @@ def remove_book():
             messagebox.showerror("Erro", "ID do Livro é obrigatório.")
             return
 
+        if book_id not in [str(book[0]) for book in books]:
+            messagebox.showerror("Erro", "ID de Livro não encontrado.")
+            return
+
         result = backend.remove_book(book_id)
         if isinstance(result, str):
             messagebox.showerror("Erro", result)
         else:
             messagebox.showinfo("Sucesso", "Livro removido com sucesso.")
             remove_book_window.destroy()
+
+    books = backend.get_books()
+    if isinstance(books, str):
+        messagebox.showerror("Erro", books)
+        return
+
+    if not books:
+        messagebox.showinfo("Info", "Nenhum livro encontrado no banco de dados.")
+        return
 
     remove_book_window = Toplevel(root)
     remove_book_window.title('Remover Livro')
