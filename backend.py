@@ -45,3 +45,34 @@ def remove_book(book_id):
     except Exception as e:
         return str(e)
 
+def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) VALUES (?, ?, ?, ?)', 
+                       (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        return str(e)
+    
+def get_loans():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM Emprestimos')
+        books = cursor.fetchall()
+        conn.close()
+        return books
+    except Exception as e:
+        return str(e)
+    
+def end_loan(loan_id):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM Emprestimos WHERE id_emprestimo = ?', (loan_id,))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        return str(e)

@@ -1,14 +1,13 @@
 from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
 import customtkinter as ctk
 from PIL import Image
-import backend
 
 # Import specific functions from modules
 from modules.add_book import add_book
 from modules.remove_book import remove_book
 from modules.show_books import show_books
+from modules.add_loan import add_loan
+from modules.end_loan import end_loan
 
 # Configurações iniciais
 ctk.set_appearance_mode("light")
@@ -37,7 +36,7 @@ icones = [
 
 # Botões do menu com espaçamento simulado por espaços em branco
 botoes = ["Novo Empréstimo", "Devolução de Livro", "Todos os Livros", "Adicionar Livro", "Remover Livro", "Alunos"]
-comandos = [None, None, show_books, lambda: add_book(root), lambda: remove_book(root), None]
+comandos = [lambda: add_loan(root), lambda: end_loan(root), show_books, lambda: add_book(root), lambda: remove_book(root), None]
 
 for i in range(len(botoes)):
     botao_frame = ctk.CTkFrame(master=frame_menu, fg_color="#FDFFEC", corner_radius=0)
