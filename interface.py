@@ -127,12 +127,12 @@ label_titulo = ctk.CTkLabel(master=frame_menu, text="Bem-Vindo à Biblioteca!", 
 label_titulo.pack(pady=40)
 
 icones = [
-    ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\loanbook.jpeg"), size=(20, 20)),
-    ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\returnbook.jpeg"), size=(20, 20)),
-    ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\listbook.jpeg"), size=(20, 20)),
-    ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\addbook.jpeg"), size=(20, 20)),
-    ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\removebook.jpeg"), size=(20, 20)),
-    ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\alunos.jpeg"), size=(20, 20))
+    ctk.CTkImage(light_image=Image.open("assets\\loanbook.jpg"), size=(20, 20)),
+    ctk.CTkImage(light_image=Image.open("assets\\returnbook.jpg"), size=(20, 20)),
+    ctk.CTkImage(light_image=Image.open("assets\\listbook.jpg"), size=(20, 20)),
+    ctk.CTkImage(light_image=Image.open("assets\\addbook.jpg"), size=(20, 20)),
+    ctk.CTkImage(light_image=Image.open("assets\\removebook.jpg"), size=(20, 20)),
+    ctk.CTkImage(light_image=Image.open("assets\\alunos.jpg"), size=(20, 20))
 ]
 
 # Botões do menu com espaçamento simulado por espaços em branco
@@ -175,7 +175,7 @@ frame_principal = ctk.CTkFrame(master=root, fg_color="#F2F2F2")
 frame_principal.pack(side="right", expand=True, fill="both")
 
 # Carrega a imagem principal (substitua 'caminho_para_imagem_principal.png' pelo caminho da imagem)
-imagem_principal = ctk.CTkImage(light_image=Image.open("C:\\Users\\joao2\\Downloads\\imagemFramePrincipal.jpeg"), size=(500, 500))
+imagem_principal = ctk.CTkImage(light_image=Image.open("assets\\imagemFramePrincipal.jpg"), size=(500, 500))
 label_imagem_principal = ctk.CTkLabel(master=frame_principal, image=imagem_principal, text="")
 label_imagem_principal.place(relx=0.5, rely=0.5, anchor="center")  # Centraliza a imagem
 
@@ -191,4 +191,3 @@ label_citacao.pack(side="bottom", padx = 20, pady=20, anchor="se")
 
 # Inicializa a interface
 root.mainloop()
-
