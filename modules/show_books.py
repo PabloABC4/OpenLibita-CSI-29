@@ -3,6 +3,11 @@ from tkinter import ttk, messagebox
 import backend
 
 def show_books():
+    """
+    Fetches and displays a list of books from the backend in a new window.
+
+    If no books are found or an error occurs, appropriate message boxes are shown.
+    """
     books = backend.get_books()
     if isinstance(books, str):
         messagebox.showerror("Erro", books)

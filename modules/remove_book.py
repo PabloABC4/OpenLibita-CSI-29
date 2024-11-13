@@ -3,6 +3,15 @@ from tkinter import ttk, messagebox
 import backend
 
 def remove_book(root):
+    """
+    Opens a new window to remove a book by its ID.
+
+    Fetches the list of books from the backend and allows the user to input the ID of the book to be removed.
+    Displays appropriate message boxes for errors and success.
+    
+    Args:
+        root: The root window from which this function is called.
+    """
     def submit_removal():
         book_id = book_id_entry.get()
 

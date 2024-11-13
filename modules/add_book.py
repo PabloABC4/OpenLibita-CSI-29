@@ -3,6 +3,15 @@ from tkinter import ttk, messagebox
 import backend
 
 def add_book(root):
+    """
+    Opens a new window to add a new book to the database.
+
+    Collects book details from the user and submits them to the backend.
+    Displays appropriate message boxes for errors and success.
+    
+    Args:
+        root: The root window from which this function is called.
+    """
     def submit_book():
         title = title_entry.get()
         num_edicao = num_edicao_entry.get()
