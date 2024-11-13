@@ -15,20 +15,21 @@ def end_loan(root):
     """
     def submit_ending():
         loan_id = loan_id_entry.get()
+        loan_end_date = loan_end_date_entry.get()
 
-        if not loan_id:
-            messagebox.showerror("Erro", "ID do Empréstimo é obrigatório.")
+        if not loan_id or not loan_end_date:
+            messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
         
         if loan_id not in [str(loan[0]) for loan in loans]:
             messagebox.showerror("Erro", "ID de Empréstimo não encontrado.")
             return
         
-        result = backend.end_loan(loan_id)
+        result = backend.end_loan(loan_id, loan_end_date)
         if isinstance(result, str):
             messagebox.showerror("Erro", result)
         else:
-            messagebox.showinfo("Sucesso", "Empréstimo removido com sucesso.")
+            messagebox.showinfo("Sucesso", "Empréstimo concluído com sucesso.")
             end_loan_window.destroy()
 
     loans = backend.get_loans()
@@ -69,4 +70,8 @@ def end_loan(root):
     loan_id_entry = ttk.Entry(end_loan_window)
     loan_id_entry.grid(column=1, row=1, padx=10, pady=5)
 
-    ttk.Button(end_loan_window, text="Enviar", command=submit_ending).grid(column=0, row=2, columnspan=2, pady=10)
+    ttk.Label(end_loan_window, text="Data Real de Devolução:").grid(column=0, row=2, padx=10, pady=5)
+    loan_end_date_entry = ttk.Entry(end_loan_window)
+    loan_end_date_entry.grid(column=1, row=2, padx=10, pady=5)
+
+    ttk.Button(end_loan_window, text="Enviar", command=submit_ending).grid(column=0, row=3, columnspan=2, pady=10)

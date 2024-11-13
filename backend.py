@@ -49,8 +49,8 @@ def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) VALUES (?, ?, ?, ?)', 
-                       (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao))
+        cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao, finalizado) VALUES (?, ?, ?, ?, ?)', 
+                       (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao, 0)) 
         conn.commit()
         conn.close()
     except Exception as e:
@@ -60,18 +60,18 @@ def get_loans():
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM Emprestimos')
+        cursor.execute('SELECT * FROM Emprestimos WHERE finalizado = 0')
         books = cursor.fetchall()
         conn.close()
         return books
     except Exception as e:
         return str(e)
     
-def end_loan(loan_id):
+def end_loan(loan_id, loan_end_date):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM Emprestimos WHERE id_emprestimo = ?', (loan_id,))
+        cursor.execute('UPDATE Emprestimos SET finalizado = 1, data_devolucao = ? WHERE id_emprestimo = ?', (loan_end_date, loan_id))
         conn.commit()
         conn.close()
     except Exception as e:
