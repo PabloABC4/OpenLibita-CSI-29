@@ -62,8 +62,8 @@ def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao, finalizado) VALUES (?, ?, ?, ?, ?)', 
-                       (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao, 0)) 
+        cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) VALUES (?, ?, ?, ?)', 
+                       (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao)) 
         conn.commit()
         conn.close()
     except Exception as e:
