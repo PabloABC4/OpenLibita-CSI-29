@@ -19,10 +19,23 @@ def get_books():
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM Livros')
         books = cursor.fetchall()
+        columns = [column[0] for column in cursor.description]
         conn.close()
-        return books
+        return books, columns
     except Exception as e:
-        return str(e)
+        return str(e), []
+    
+def get_students():
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM Usuarios')
+        students = cursor.fetchall()
+        columns = [column[0] for column in cursor.description]
+        conn.close()
+        return students, columns
+    except Exception as e:
+        return str(e), []
 
 def add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao):
     try:

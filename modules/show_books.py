@@ -8,7 +8,7 @@ def show_books():
 
     If no books are found or an error occurs, appropriate message boxes are shown.
     """
-    books = backend.get_books()
+    books, columns = backend.get_books()
     if isinstance(books, str):
         messagebox.showerror("Erro", books)
         return
@@ -19,14 +19,23 @@ def show_books():
 
     new_root = Toplevel()
     new_root.title('Lista de Livros')
-    new_root.geometry("400x300")
-    new_frm = ttk.Frame(new_root, padding=10)
-    new_frm.grid(sticky=(N, S, E, W))
+    new_root.geometry("1050x400")
 
-    new_root.columnconfigure(0, weight=1)
-    new_root.rowconfigure(0, weight=1)
-    new_frm.columnconfigure(0, weight=1)
+    tree = ttk.Treeview(new_root, columns=columns, show='headings')
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=250 if col == "titulo" else 100, anchor=CENTER)  # Set width for each column
+    tree.grid(row=0, column=0, columnspan=2, padx=10, pady=5)
 
-    for idx, book in enumerate(books):
-        text = f"{idx + 1}. {book}"
-        ttk.Label(new_frm, text=text).grid(column=0, row=idx)
+    for book in books:
+        formatted_book = (
+            book[0],
+            book[1],
+            book[2],
+            book[3],
+            book[4],
+            book[5],
+            book[6],
+            book[7]
+        )
+        tree.insert('', END, values=formatted_book)
