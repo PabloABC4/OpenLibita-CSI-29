@@ -64,9 +64,19 @@ def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
     try:
         conn = get_connection()
         cursor = conn.cursor()
+        
+        cursor.execute('SELECT disponibilidade FROM Livros WHERE id_livro = ?', (id_livro,))
+        disponibilidade = cursor.fetchone()[0]
+        if disponibilidade == "Indisponível":
+            return disponibilidade
+
+        
         cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) OUTPUT INSERTED.id_emprestimo VALUES (?, ?, ?, ?)', 
                        (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao))
         loan_id = cursor.fetchone()[0]
+        
+        cursor.execute('UPDATE Livros SET disponibilidade = ? WHERE id_livro = ?', ('Indisponível', id_livro))
+        
         conn.commit()
         conn.close()
         return loan_id

@@ -58,6 +58,7 @@ CREATE TABLE Livros (
     num_edicao INT,
     num_exemplar INT,
     volume NVARCHAR(50),
+    disponibilidade NVARCHAR(15) DEFAULT 'Disponível',
     id_editora INT,
     id_assunto INT,
     id_localizacao INT,
