@@ -1,5 +1,7 @@
+from tkinter import *
 import customtkinter as ctk
 from tkinter import messagebox
+from PIL import Image
 import backend
 from datetime import datetime
 
