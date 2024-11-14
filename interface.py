@@ -37,12 +37,11 @@ icones = [
 
 # Botões do menu com espaçamento simulado por espaços em branco
 botoes = ["Novo Empréstimo", "Devolução de Livro", "Todos os Livros", "Adicionar Livro", "Remover Livro", "Alunos"]
-comandos = [lambda: add_loan(root), lambda: end_loan(root), show_books, lambda: add_book(root), lambda: remove_book(root), show_students]
+comandos = [lambda: add_loan(frame_principal), lambda: end_loan(frame_principal), show_books, lambda: add_book(frame_principal), lambda: remove_book(frame_principal), show_students]
 
 for i in range(len(botoes)):
     botao_frame = ctk.CTkFrame(master=frame_menu, fg_color="#FDFFEC", corner_radius=0)
     botao_frame.pack(fill="x", pady=5)
-
     botao = ctk.CTkButton(
         master=botao_frame,
         text="      " + str(botoes[i]),  # Adiciona espaços em branco para simular o espaçamento
@@ -57,7 +56,6 @@ for i in range(len(botoes)):
         image=icones[i],  # Adiciona o ícone ao botão
         compound="left", # Posiciona o ícone à esquerda do texto
         command=comandos[i]
-
     )
     botao.pack(fill="x", pady=0)  # Preenchimento horizontal e espaçamento menor entre os botões
 
