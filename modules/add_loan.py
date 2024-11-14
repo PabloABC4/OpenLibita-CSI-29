@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 import backend
+from datetime import datetime
 
 def add_loan(root):
     """
@@ -22,11 +23,19 @@ def add_loan(root):
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
         
+        try:
+            # Ensure the dates are in the correct format
+            data_emprestimo = datetime.strptime(data_emprestimo, '%d/%m/%Y').strftime('%Y-%m-%d')
+            data_prevista_devolucao = datetime.strptime(data_prevista_devolucao, '%d/%m/%Y').strftime('%Y-%m-%d')
+        except ValueError:
+            messagebox.showerror("Erro", "Datas inválidas. Use o formato DD/MM/AAAA.")
+            return
+
         result = backend.add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao)
         if isinstance(result, str):
             messagebox.showerror("Erro", result)
         else:
-            messagebox.showinfo("Sucesso", "Empréstimo adicionado com sucesso.")
+            messagebox.showinfo("Sucesso", f"Empréstimo adicionado com sucesso. ID do Empréstimo: {result}")
             add_loan_window.destroy()
 
     add_loan_window = Toplevel(root)

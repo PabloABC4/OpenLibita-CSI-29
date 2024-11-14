@@ -72,7 +72,7 @@ CREATE TABLE Emprestimos (
     id_usuario INT,
     id_livro INT,
     data_emprestimo DATE NOT NULL,
-    o DATE,
+    data_prevista_devolucao DATE,
     data_devolucao DATE,
     finalizado BIT DEFAULT 0,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),

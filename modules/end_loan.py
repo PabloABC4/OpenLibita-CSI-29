@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 import backend
+from datetime import datetime
 
 def end_loan(root):
     """
@@ -21,6 +22,13 @@ def end_loan(root):
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
         
+        try:
+            # Ensure the date is in the correct format
+            loan_end_date = datetime.strptime(loan_end_date, '%d/%m/%Y').strftime('%Y-%m-%d')
+        except ValueError:
+            messagebox.showerror("Erro", "Data de devolução inválida. Use o formato DD/MM/AAAA.")
+            return
+
         if loan_id not in [str(loan[0]) for loan in loans]:
             messagebox.showerror("Erro", "ID de Empréstimo não encontrado.")
             return
