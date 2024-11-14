@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 import backend
+from datetime import datetime
 
 def add_loan(frame_principal):
     """
@@ -22,6 +23,14 @@ def add_loan(frame_principal):
 
         if not id_usuario or not id_livro or not data_emprestimo or not data_prevista_devolucao:
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
+            return
+        
+        try:
+            # Ensure the dates are in the correct format
+            data_emprestimo = datetime.strptime(data_emprestimo, '%d/%m/%Y').strftime('%Y-%m-%d')
+            data_prevista_devolucao = datetime.strptime(data_prevista_devolucao, '%d/%m/%Y').strftime('%Y-%m-%d')
+        except ValueError:
+            messagebox.showerror("Erro", "Datas inválidas. Use o formato DD/MM/AAAA.")
             return
 
         result = backend.add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao)
@@ -82,4 +91,4 @@ def add_loan(frame_principal):
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     frame_principal.grid_columnconfigure(1, weight=1)
     frame_principal.grid_columnconfigure(3, weight=1)
-
+ 

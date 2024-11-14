@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 import backend
+from datetime import datetime
 
 def end_loan(root):
     """
@@ -21,6 +22,13 @@ def end_loan(root):
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
         
+        try:
+            # Ensure the date is in the correct format
+            loan_end_date = datetime.strptime(loan_end_date, '%d/%m/%Y').strftime('%Y-%m-%d')
+        except ValueError:
+            messagebox.showerror("Erro", "Data de devolução inválida. Use o formato DD/MM/AAAA.")
+            return
+
         if loan_id not in [str(loan[0]) for loan in loans]:
             messagebox.showerror("Erro", "ID de Empréstimo não encontrado.")
             return
@@ -32,6 +40,42 @@ def end_loan(root):
             messagebox.showinfo("Sucesso", "Empréstimo concluído com sucesso.")
             end_loan_window.destroy()
 
+    def display_loans():
+        current_page_loans = loans[loans_per_page * page_index: loans_per_page * (page_index + 1)]
+        for loan in current_page_loans:
+            formatted_loan = (
+                loan[0],
+                loan[1],
+                loan[2],
+                loan[3].strftime('%d/%m/%Y'),
+                loan[4].strftime('%d/%m/%Y')
+            )
+            tree.insert('', END, values=formatted_loan)
+            
+        if page_index == 0:
+            previous_page_button.config(state=DISABLED)
+        else:
+            previous_page_button.config(state=NORMAL)
+
+        if len(loans) <= loans_per_page * (page_index + 1):
+            next_page_button.config(state=DISABLED)
+        else:
+            next_page_button.config(state=NORMAL)
+
+    def next_page():
+        for item in tree.get_children():
+            tree.delete(item)
+        nonlocal page_index
+        page_index += 1
+        display_loans()
+
+    def previous_page():
+        for item in tree.get_children():
+            tree.delete(item)
+        nonlocal page_index
+        page_index -= 1
+        display_loans()
+
     loans = backend.get_loans()
     if isinstance(loans, str):
         messagebox.showerror("Erro", loans)
@@ -42,8 +86,11 @@ def end_loan(root):
         return
 
     end_loan_window = Toplevel(root)
-    end_loan_window.title('Finalizar Empréstimo')
+    end_loan_window.title('Devolução de Livro')
     end_loan_window.geometry("600x400")
+
+    page_index = 0
+    loans_per_page = 10
 
     columns = ('ID Empréstimo', 'ID Usuário', 'ID Livro', 'Data Empréstimo', 'Data Prevista para Devolução')
     tree = ttk.Treeview(end_loan_window, columns=columns, show='headings')
@@ -56,22 +103,20 @@ def end_loan(root):
     tree.column('Data Prevista para Devolução', width=170, anchor=CENTER)
     tree.grid(row=0, column=0, columnspan=2, padx=10, pady=5)
 
-    for loan in loans:
-        formatted_loan = (
-            loan[0],
-            loan[1],
-            loan[2],
-            loan[3].strftime('%d/%m/%Y'),
-            loan[4].strftime('%d/%m/%Y')
-        )
-        tree.insert('', END, values=formatted_loan)
+    previous_page_button = Button(end_loan_window, text="Página Anterior", command=previous_page)
+    previous_page_button.grid(row=1, column=0, pady=10)
 
-    ttk.Label(end_loan_window, text="ID do Empréstimo:").grid(column=0, row=1, padx=10, pady=5)
+    next_page_button = Button(end_loan_window, text="Próxima Página", command=next_page)
+    next_page_button.grid(row=1, column=1, pady=10)
+
+    display_loans()
+
+    ttk.Label(end_loan_window, text="ID do Empréstimo:").grid(column=0, row=2, padx=10, pady=5)
     loan_id_entry = ttk.Entry(end_loan_window)
-    loan_id_entry.grid(column=1, row=1, padx=10, pady=5)
+    loan_id_entry.grid(column=1, row=2, padx=10, pady=5)
 
-    ttk.Label(end_loan_window, text="Data Real de Devolução:").grid(column=0, row=2, padx=10, pady=5)
+    ttk.Label(end_loan_window, text="Data Real de Devolução:").grid(column=0, row=3, padx=10, pady=5)
     loan_end_date_entry = ttk.Entry(end_loan_window)
-    loan_end_date_entry.grid(column=1, row=2, padx=10, pady=5)
+    loan_end_date_entry.grid(column=1, row=3, padx=10, pady=5)
 
-    ttk.Button(end_loan_window, text="Enviar", command=submit_ending).grid(column=0, row=3, columnspan=2, pady=10)
+    ttk.Button(end_loan_window, text="Enviar", command=submit_ending).grid(column=0, row=4, columnspan=2, pady=10)

@@ -25,11 +25,11 @@ def add_book(root):
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
 
-        result = backend.add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao)
-        if isinstance(result, str):
-            messagebox.showerror("Erro", result)
+        book_id = backend.add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao)
+        if isinstance(book_id, str):
+            messagebox.showerror("Erro", book_id)
         else:
-            messagebox.showinfo("Sucesso", "Livro adicionado com sucesso.")
+            messagebox.showinfo("Sucesso", "Livro adicionado com sucesso. ID do livro: " + str(book_id))
             add_book_window.destroy()
 
     add_book_window = Toplevel(root)
