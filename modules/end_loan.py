@@ -70,7 +70,7 @@ def end_loan(main_frame):
         return
 
     page_index = 0
-    loans_per_page = 10
+    loans_per_page = 7
 
     table_frame = ctk.CTkFrame(master=main_frame)
     table_frame.grid(row=0, column=0, columnspan=2, padx=80, pady=(120, 10), sticky="nsew")
@@ -143,13 +143,13 @@ def end_loan(main_frame):
 
     display_loans()
 
-    ctk.CTkLabel(main_frame, text="ID do Empréstimo:", font=("Roboto", 14)).grid(row=2, column=0, padx=(80,10), pady=(20,5), sticky = 'w')
+    ctk.CTkLabel(main_frame, text="ID do Empréstimo:", font=("Roboto", 14)).grid(row=2, column=0, padx=(80,0), pady=(20,5), sticky = 'w')
     loan_id_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Empréstimo", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    loan_id_entry.grid(row=2, column=1, padx=5, pady=(20,5), sticky = 'w')
+    loan_id_entry.grid(row=2, column=1, pady=(20,5), sticky = 'w')
 
-    ctk.CTkLabel(main_frame, text="Data Real de Devolução:", font=("Roboto", 14)).grid(row=3, column=0, padx=(80,10), pady=5, sticky = 'w')
+    ctk.CTkLabel(main_frame, text="Data Real de Devolução:", font=("Roboto", 14)).grid(row=3, column=0, padx=(80,0), pady=5, sticky = 'w')
     loan_end_date_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite a Data da Devolução", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    loan_end_date_entry.grid(row=3, column=1, padx=5, pady=5, sticky = 'w')
+    loan_end_date_entry.grid(row=3, column=1, pady=5, sticky = 'w')
 
     ctk.CTkButton(main_frame, 
                 text="Concluir Devolução", 
@@ -160,4 +160,4 @@ def end_loan(main_frame):
                 corner_radius=2,
                 border_width=1,
                 border_color="#585c45",
-                command=submit_ending).grid(row=4, column=0, columnspan=2, pady=10)
+                command=submit_ending).grid(row=4, column=0, columnspan=2, padx =(160, 160), pady=20, sticky = "ew")

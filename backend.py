@@ -99,6 +99,7 @@ def end_loan(loan_id, loan_end_date):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('UPDATE Emprestimos SET finalizado = 1, data_devolucao = ? WHERE id_emprestimo = ?', (loan_end_date, loan_id))
+        cursor.execute('UPDATE Livros SET disponibilidade = ? FROM Livros JOIN Emprestimos ON Livros.id_livro = Emprestimos.id_livro WHERE Emprestimos.id_emprestimo = ?', ('Disponível', loan_id))
         conn.commit()
         conn.close()
     except Exception as e:
