@@ -26,10 +26,10 @@ title_label = ctk.CTkLabel(master=frame_menu, text="Bem-Vindo à Biblioteca!", f
 title_label.pack(pady=40)
 
 buttons_data = [
-    {"icon": ctk.CTkImage(light_image=Image.open("assets\\loanbook.jpeg"), size=(20, 20)), "text": "Novo Empréstimo", "command": lambda: add_loan(root)},
-    {"icon": ctk.CTkImage(light_image=Image.open("assets\\returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(root)},
-    {"icon": ctk.CTkImage(light_image=Image.open("assets\\addbook.jpeg"), size=(20, 20)), "text": "Adicionar Livro", "command": lambda: add_book(root)},
-    {"icon": ctk.CTkImage(light_image=Image.open("assets\\removebook.jpeg"), size=(20, 20)), "text": "Remover Livro", "command": lambda: remove_book(root)},
+    {"icon": ctk.CTkImage(light_image=Image.open("assets\\loanbook.jpeg"), size=(20, 20)), "text": "Novo Empréstimo", "command": lambda: add_loan(main_frame)},
+    {"icon": ctk.CTkImage(light_image=Image.open("assets\\returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(main_frame)},
+    {"icon": ctk.CTkImage(light_image=Image.open("assets\\addbook.jpeg"), size=(20, 20)), "text": "Adicionar Livro", "command": lambda: add_book(main_frame)},
+    {"icon": ctk.CTkImage(light_image=Image.open("assets\\removebook.jpeg"), size=(20, 20)), "text": "Remover Livro", "command": lambda: remove_book(main_frame)},
     {"icon": ctk.CTkImage(light_image=Image.open("assets\\alunos.jpeg"), size=(20, 20)), "text": "Alunos", "command": show_students},
 ]
 
