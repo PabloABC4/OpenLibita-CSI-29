@@ -42,7 +42,7 @@ def end_loan(root):
         return
 
     end_loan_window = Toplevel(root)
-    end_loan_window.title('Finalizar Empréstimo')
+    end_loan_window.title('Devolução de Livro')
     end_loan_window.geometry("600x400")
 
     columns = ('ID Empréstimo', 'ID Usuário', 'ID Livro', 'Data Empréstimo', 'Data Prevista para Devolução')

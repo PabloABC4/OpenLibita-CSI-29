@@ -4,19 +4,13 @@ import backend
 
 def remove_book(root):
     """
-    Opens a new window to remove a book by its ID.
-
-    Fetches the list of books from the backend and allows the user to input the ID of the book to be removed.
-    Displays appropriate message boxes for errors and success.
-    
-    Args:
-        root: The root window from which this function is called.
+    Displays a list of current books and allows the user to remove a selected book.
     """
     def submit_removal():
         book_id = book_id_entry.get()
 
         if not book_id:
-            messagebox.showerror("Erro", "ID do Livro é obrigatório.")
+            messagebox.showerror("Erro", "ID do livro é obrigatório.")
             return
 
         if book_id not in [str(book[0]) for book in books]:
@@ -29,8 +23,8 @@ def remove_book(root):
         else:
             messagebox.showinfo("Sucesso", "Livro removido com sucesso.")
             remove_book_window.destroy()
-
-    books = backend.get_books()
+    
+    books, columns = backend.get_books()
     if isinstance(books, str):
         messagebox.showerror("Erro", books)
         return
@@ -41,10 +35,30 @@ def remove_book(root):
 
     remove_book_window = Toplevel(root)
     remove_book_window.title('Remover Livro')
-    remove_book_window.geometry("300x200")
+    remove_book_window.geometry("1050x400")
 
-    ttk.Label(remove_book_window, text="ID do Livro:").grid(column=0, row=0, padx=10, pady=5)
+    tree = ttk.Treeview(remove_book_window, columns=columns, show='headings')
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=250 if col == "titulo" else 100, anchor=CENTER)
+    tree.grid(row=0, column=0, columnspan=2, padx=10, pady=5)
+
+    for book in books:
+        formatted_book = (
+            book[0],
+            book[1],
+            book[2],
+            book[3],
+            book[4],
+            book[5],
+            book[6],
+            book[7]
+        )
+        tree.insert('', END, values=formatted_book)
+
+    ttk.Label(remove_book_window, text="ID do Livro:").grid(column=0, row=1, padx=10, pady=5)
     book_id_entry = ttk.Entry(remove_book_window)
-    book_id_entry.grid(column=1, row=0, padx=10, pady=5)
+    book_id_entry.grid(column=1, row=1, padx=10, pady=5)
 
-    ttk.Button(remove_book_window, text="Enviar", command=submit_removal).grid(column=0, row=1, columnspan=2, pady=10)
+    delete_button = Button(remove_book_window, text="Enviar", command=submit_removal)
+    delete_button.grid(row=2, column=0, columnspan=2, pady=10)

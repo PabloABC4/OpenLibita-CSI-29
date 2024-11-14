@@ -5,7 +5,6 @@ from PIL import Image
 # Import specific functions from modules
 from modules.add_book import add_book
 from modules.remove_book import remove_book
-from modules.show_books import show_books
 from modules.add_loan import add_loan
 from modules.end_loan import end_loan
 from modules.show_students import show_students
@@ -29,15 +28,14 @@ label_titulo.pack(pady=40)
 icones = [
     ctk.CTkImage(light_image=Image.open("assets\\loanbook.jpeg"), size=(20, 20)),
     ctk.CTkImage(light_image=Image.open("assets\\returnbook.jpeg"), size=(20, 20)),
-    ctk.CTkImage(light_image=Image.open("assets\\listbook.jpeg"), size=(20, 20)),
     ctk.CTkImage(light_image=Image.open("assets\\addbook.jpeg"), size=(20, 20)),
     ctk.CTkImage(light_image=Image.open("assets\\removebook.jpeg"), size=(20, 20)),
     ctk.CTkImage(light_image=Image.open("assets\\alunos.jpeg"), size=(20, 20))
 ]
 
 # Botões do menu com espaçamento simulado por espaços em branco
-botoes = ["Novo Empréstimo", "Devolução de Livro", "Todos os Livros", "Adicionar Livro", "Remover Livro", "Alunos"]
-comandos = [lambda: add_loan(root), lambda: end_loan(root), show_books, lambda: add_book(root), lambda: remove_book(root), show_students]
+botoes = ["Novo Empréstimo", "Devolução de Livro", "Adicionar Livro", "Remover Livro", "Alunos"]
+comandos = [lambda: add_loan(root), lambda: end_loan(root), lambda: add_book(root), lambda: remove_book(root), show_students]
 
 for i in range(len(botoes)):
     botao_frame = ctk.CTkFrame(master=frame_menu, fg_color="#FDFFEC", corner_radius=0)
@@ -91,4 +89,3 @@ label_citacao.pack(side="bottom", padx = 20, pady=20, anchor="se")
 
 # Inicializa a interface
 root.mainloop()
-
