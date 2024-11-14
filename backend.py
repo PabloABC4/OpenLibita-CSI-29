@@ -41,10 +41,12 @@ def add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO Livros (titulo, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao) VALUES (?, ?, ?, ?, ?, ?, ?)', 
+        cursor.execute('INSERT INTO Livros (titulo, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao) OUTPUT INSERTED.id_livro VALUES (?, ?, ?, ?, ?, ?, ?)', 
                        (title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao))
+        book_id = cursor.fetchone()[0]
         conn.commit()
         conn.close()
+        return book_id
     except Exception as e:
         return str(e)
 
