@@ -65,17 +65,16 @@ def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
         conn = get_connection()
         cursor = conn.cursor()
         
-        cursor.execute('SELECT disponibilidade FROM Livros WHERE id_livro = ?', (id_livro,))
-        disponibilidade = cursor.fetchone()[0]
-        if disponibilidade == "Indisponível":
-            return disponibilidade
-
+        cursor.execute('SELECT disponivel FROM Livros WHERE id_livro = ?', (id_livro,))
+        disponivel = cursor.fetchone()[0]
+        if not disponivel:
+            return "Indisponível"
         
         cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) OUTPUT INSERTED.id_emprestimo VALUES (?, ?, ?, ?)', 
                        (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao))
         loan_id = cursor.fetchone()[0]
         
-        cursor.execute('UPDATE Livros SET disponibilidade = ? WHERE id_livro = ?', ('Indisponível', id_livro))
+        cursor.execute('UPDATE Livros SET disponivel = 0 WHERE id_livro = ?', (id_livro,))
         
         conn.commit()
         conn.close()
@@ -99,7 +98,7 @@ def end_loan(loan_id, loan_end_date):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('UPDATE Emprestimos SET finalizado = 1, data_devolucao = ? WHERE id_emprestimo = ?', (loan_end_date, loan_id))
-        cursor.execute('UPDATE Livros SET disponibilidade = ? FROM Livros JOIN Emprestimos ON Livros.id_livro = Emprestimos.id_livro WHERE Emprestimos.id_emprestimo = ?', ('Disponível', loan_id))
+        cursor.execute('UPDATE Livros SET disponivel = 1 FROM Livros JOIN Emprestimos ON Livros.id_livro = Emprestimos.id_livro WHERE Emprestimos.id_emprestimo = ?', (loan_id,))
         conn.commit()
         conn.close()
     except Exception as e:

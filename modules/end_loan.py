@@ -118,27 +118,27 @@ def end_loan(main_frame):
         display_loans()
 
     previous_page_button = ctk.CTkButton(main_frame, 
-                                        text="Página Anterior", 
-                                        font=("Roboto", 14, 'bold'),
-                                        fg_color="#98a164",
-                                        hover_color="#5c613e",
-                                        text_color="#FFFFFF",
-                                        corner_radius=2,
-                                        border_width=1,
-                                        border_color="#585c45",
-                                        command=previous_page)
+        text="Página Anterior", 
+        font=("Roboto", 14, 'bold'),
+        fg_color="#98a164",
+        hover_color="#5c613e",
+        text_color="#FFFFFF",
+        corner_radius=2,
+        border_width=1,
+        border_color="#585c45",
+        command=previous_page)
     previous_page_button.grid(row=1, column=0, padx=(80,10), pady=10, sticky="w")
 
     next_page_button =  ctk.CTkButton(main_frame, 
-                                    text="Próxima Página", 
-                                    font=("Roboto", 14, 'bold'),
-                                    fg_color="#98a164",
-                                    hover_color="#5c613e",
-                                    text_color="#FFFFFF",
-                                    corner_radius=2,
-                                    border_width=1,
-                                    border_color="#585c45",
-                                    command=next_page)
+        text="Próxima Página", 
+        font=("Roboto", 14, 'bold'),
+        fg_color="#98a164",
+        hover_color="#5c613e",
+        text_color="#FFFFFF",
+        corner_radius=2,
+        border_width=1,
+        border_color="#585c45",
+        command=next_page)
     next_page_button.grid(row=1, column=1, padx=(10,80), pady=10, sticky="e")
 
     display_loans()

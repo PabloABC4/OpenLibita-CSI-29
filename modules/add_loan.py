@@ -36,7 +36,6 @@ def add_loan(frame_principal):
             return
 
         result = backend.add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao)
-        print(type(result))
         if isinstance(result, str):
             if result == "Indisponível":
                 messagebox.showerror("Erro", "O livro solicitado está indisponível")
@@ -83,15 +82,15 @@ def add_loan(frame_principal):
 
     # Botão centralizado na tela
     realizar_emprestimo_button = ctk.CTkButton(frame_principal,
-                                            text="Realizar Empréstimo", 
-                                            font=("Roboto", 14, 'bold'), 
-                                            fg_color="#98a164",
-                                            hover_color="#5c613e",
-                                            text_color="#FFFFFF",
-                                            corner_radius=2,
-                                            border_width=1,
-                                            border_color="#585c45",
-                                            command=submit_loan)
+        text="Realizar Empréstimo", 
+        font=("Roboto", 14, 'bold'), 
+        fg_color="#98a164",
+        hover_color="#5c613e",
+        text_color="#FFFFFF",
+        corner_radius=2,
+        border_width=1,
+        border_color="#585c45",
+        command=submit_loan)
     realizar_emprestimo_button.grid(row=4, column=0, columnspan=3, padx=(120,0) , pady=40, sticky ="ew")
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
