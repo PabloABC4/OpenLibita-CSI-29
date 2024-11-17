@@ -55,8 +55,6 @@ def add_book(main_frame):
         )
         label_citacao.pack(side="bottom", padx=20, pady=20, anchor="se")
 
-    
-
     ctk.CTkLabel(main_frame, text="Titulo:", font=("Roboto", 14)).grid(row=0, column=0, padx=(120,0), pady=(120,5), sticky="ew")
     title_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o Título", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
     title_entry.grid(row=1, column=0, padx=(120,0), pady=(0,10), sticky = "ew")
@@ -77,8 +75,8 @@ def add_book(main_frame):
     id_editora_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID da Editora", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
     id_editora_entry.grid(row=5, column=0, padx=(120,0), pady=(0,10), sticky = "ew")
 
-    ctk.CTkLabel(main_frame, text="ID do Livro:", font=("Roboto", 14)).grid(row=4, column=2, padx=(0,100), pady=(10,5), sticky="ew")
-    id_assunto_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Livro", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
+    ctk.CTkLabel(main_frame, text="ID do Assunto:", font=("Roboto", 14)).grid(row=4, column=2, padx=(0,100), pady=(10,5), sticky="ew")
+    id_assunto_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Assunto", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
     id_assunto_entry.grid(row=5, column=2, padx=(0,100), pady=(0,10), sticky = "ew")
 
     ctk.CTkLabel(main_frame, text="ID da Localização:", font=("Roboto", 14)).grid(row=6, column=1, pady=(10,5), sticky="ew")
@@ -87,15 +85,15 @@ def add_book(main_frame):
 
         # Botão centralizado na tela
     realizar_emprestimo_button = ctk.CTkButton(main_frame,
-                                            text="Adicionar Livro", 
-                                            font=("Roboto", 14, 'bold'), 
-                                            fg_color="#98a164",
-                                            hover_color="#5c613e",
-                                            text_color="#FFFFFF",
-                                            corner_radius=2,
-                                            border_width=1,
-                                            border_color="#585c45",
-                                            command=submit_book)
+        text="Adicionar Livro", 
+        font=("Roboto", 14, 'bold'), 
+        fg_color="#98a164",
+        hover_color="#5c613e",
+        text_color="#FFFFFF",
+        corner_radius=2,
+        border_width=1,
+        border_color="#585c45",
+        command=submit_book)
     realizar_emprestimo_button.grid(row=8, column=1, pady=40, sticky ="ew")
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente

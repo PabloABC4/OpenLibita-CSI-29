@@ -152,12 +152,13 @@ def end_loan(main_frame):
     loan_end_date_entry.grid(row=3, column=1, pady=5, sticky = 'w')
 
     ctk.CTkButton(main_frame, 
-                text="Concluir Devolução", 
-                font=("Roboto", 14, 'bold'),
-                fg_color="#98a164",
-                hover_color="#5c613e",
-                text_color="#FFFFFF",
-                corner_radius=2,
-                border_width=1,
-                border_color="#585c45",
-                command=submit_ending).grid(row=4, column=0, columnspan=2, padx =(160, 160), pady=20, sticky = "ew")
+        text="Concluir Devolução", 
+        font=("Roboto", 14, 'bold'),
+        fg_color="#98a164",
+        hover_color="#5c613e",
+        text_color="#FFFFFF",
+        corner_radius=2,
+        border_width=1,
+        border_color="#585c45",
+        command=submit_ending
+        ).grid(row=4, column=0, columnspan=2, padx =(160, 160), pady=20, sticky = "ew")
