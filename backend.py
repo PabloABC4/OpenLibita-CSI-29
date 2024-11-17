@@ -75,6 +75,10 @@ def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
         conn = get_connection()
         cursor = conn.cursor()
         
+        cursor.execute('SELECT COUNT(*) FROM Livros WHERE id_livro = ?', (id_livro,))
+        if cursor.fetchone()[0] == 0:
+            return "ID de livro inválido"
+        
         cursor.execute('SELECT em_emprestimo, existente FROM Livros WHERE id_livro = ?', (id_livro,))
         livro_status = cursor.fetchone()
         if not livro_status[1]:

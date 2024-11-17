@@ -37,7 +37,7 @@ def add_loan(frame_principal):
 
         result = backend.add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao)
         if isinstance(result, str):
-                messagebox.showerror("Erro", result)
+            messagebox.showerror("Erro", result)
         else:
             messagebox.showinfo("Sucesso", "Empréstimo adicionado com sucesso.")
             restaurar_frame_principal(frame_principal)  # Restaura o frame original após o envio
