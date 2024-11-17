@@ -33,9 +33,10 @@ def remove_book(root):
                 book[2],
                 book[3],
                 book[4],
-                book[5],
-                book[6],
-                book[7]
+                "Sim" if book[5] else "Não", # Loan status
+                book[7],
+                book[8],
+                book[9],
             )
             tree.insert('', END, values=formatted_book)
             

@@ -39,8 +39,3 @@ INSERT INTO Livros (titulo, num_edicao, num_exemplar, volume, id_editora, id_ass
 ('Viagem ao Centro da Terra', 1, 5, 'Volume Único', 1, 1, 1),
 ('Dom Casmurro', 2, 3, 'Volume Único', 2, 4, 2),
 ('Relatividade: A Teoria Especial e Geral', 1, 4, 'Volume Único', 3, 3, 3);
-
-INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) VALUES
-(1, 1, '2024-04-01', '2024-04-15'),
-(2, 2, '2024-04-05', '2024-04-20'),
-(3, 3, '2024-04-10', '2024-04-25');
