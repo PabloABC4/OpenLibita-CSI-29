@@ -67,6 +67,7 @@ def end_loan(main_frame):
 
     if not loans:
         messagebox.showinfo("Info", "Nenhum empréstimo encontrado no banco de dados.")
+        restore_mainframe(main_frame)
         return
 
     page_index = 0
