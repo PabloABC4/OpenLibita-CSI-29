@@ -63,6 +63,7 @@ def end_loan(main_frame):
     loans = backend.get_loans()
     if isinstance(loans, str):
         messagebox.showerror("Erro", loans)
+        restore_mainframe(main_frame)
         return
 
     if not loans:
