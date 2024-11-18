@@ -4,6 +4,7 @@ from tkinter import messagebox
 from PIL import Image
 import backend
 from datetime import datetime
+from modules.common import LabelEntry
 
 def add_loan(frame_principal):
     """
@@ -59,23 +60,12 @@ def add_loan(frame_principal):
         )
         label_citacao.pack(side="bottom", padx=20, pady=20, anchor="se")
 
-
+    
     # Configuração dos campos de entrada com grid
-    ctk.CTkLabel(frame_principal, text="ID do Livro:", font=("Roboto", 14)).grid(row=0, column=0, padx=(120,0), pady=(120,5), sticky="ew")
-    id_livro_entry = ctk.CTkEntry(frame_principal, placeholder_text="Digite o ID do Livro", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    id_livro_entry.grid(row=1, column=0, padx=(120,0), pady=10, sticky = "ew")
-
-    ctk.CTkLabel(frame_principal, text="ID do Aluno:", font=("Roboto", 14)).grid(row=0, column=2, padx=10, pady=(120,5), sticky="ew")
-    id_usuario_entry = ctk.CTkEntry(frame_principal, placeholder_text="Digite o ID do Aluno", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    id_usuario_entry.grid(row=1, column=2, padx=10, pady=(0, 10), sticky="ew")
-
-    ctk.CTkLabel(frame_principal, text="Data do Empréstimo:", font=("Roboto", 14)).grid(row=2, column=0, padx=(120,0), pady=(10, 5), sticky="ew")
-    data_emprestimo_entry = ctk.CTkEntry(frame_principal, placeholder_text="Digite a Data do Empréstimo", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    data_emprestimo_entry.grid(row=3, column=0, padx=(120,0), pady=(0, 10), sticky="ew")
-
-    ctk.CTkLabel(frame_principal, text="Previsão de Devolução:", font=("Roboto", 14)).grid(row=2, column=2, padx=10, pady=10, sticky="ew")
-    data_prevista_devolucao_entry = ctk.CTkEntry(frame_principal, placeholder_text="Digite a Previsão de Devolução", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    data_prevista_devolucao_entry.grid(row=3, column=2, padx=10, pady=10, sticky="ew")
+    id_livro_entry = LabelEntry(frame_principal, "ID do Livro", 0, 0, (120, 0), (120, 5), (120, 0), 10)
+    id_usuario_entry = LabelEntry(frame_principal, "ID do Aluno", 0, 2, 10, (120, 5), 10, 10)
+    data_emprestimo_entry = LabelEntry(frame_principal, "Data do Empréstimo", 2, 0, (120, 0), (10, 5), (120, 0), (0,10))
+    data_prevista_devolucao_entry = LabelEntry(frame_principal, "Previsão de Devolução", 2, 2, 10, 10, 10, 10)
 
     # Botão centralizado na tela
     realizar_emprestimo_button = ctk.CTkButton(frame_principal,

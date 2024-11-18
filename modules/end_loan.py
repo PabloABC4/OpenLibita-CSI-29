@@ -4,6 +4,7 @@ import customtkinter as ctk
 from PIL import Image
 import backend
 from datetime import datetime
+from modules.common import LabelEntry
 
 def end_loan(main_frame):
     """
@@ -129,7 +130,7 @@ def end_loan(main_frame):
         border_width=1,
         border_color="#585c45",
         command=previous_page)
-    previous_page_button.grid(row=1, column=0, padx=(80, 5), pady=10, sticky="w")
+    previous_page_button.grid(row=1, column=0, padx=(100, 5), pady=10, sticky="w")
 
     next_page_button =  ctk.CTkButton(main_frame, 
         text="Próxima Página", 
@@ -141,17 +142,15 @@ def end_loan(main_frame):
         border_width=1,
         border_color="#585c45",
         command=next_page)
-    next_page_button.grid(row=1, column=1, padx=(5, 80), pady=10, sticky="e")
+    next_page_button.grid(row=1, column=1, padx=(0, 100), pady=10, sticky="e")
+
+    main_frame.grid_rowconfigure(2, minsize=50)  # Add this line to set the height of row 2
 
     display_loans()
 
-    ctk.CTkLabel(main_frame, text="ID do Empréstimo:", font=("Roboto", 14)).grid(row=2, column=0, padx=(80,0), pady=(20,5), sticky = 'w')
-    loan_id_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Empréstimo", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    loan_id_entry.grid(row=2, column=1, pady=(20,5), sticky = 'w')
+    loan_id_entry = LabelEntry(main_frame, "ID do Empréstimo", 3, 0, 0, 5, 100, 5)
 
-    ctk.CTkLabel(main_frame, text="Data Real de Devolução:", font=("Roboto", 14)).grid(row=3, column=0, padx=(80,0), pady=5, sticky = 'w')
-    loan_end_date_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite a Data da Devolução", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    loan_end_date_entry.grid(row=3, column=1, pady=5, sticky = 'w')
+    loan_end_date_entry = LabelEntry(main_frame, "Data real de Devolução", 3, 1, 0, 5, 100, 5)
 
     ctk.CTkButton(main_frame, 
         text="Concluir Devolução", 
@@ -163,4 +162,5 @@ def end_loan(main_frame):
         border_width=1,
         border_color="#585c45",
         command=submit_ending
-        ).grid(row=4, column=0, columnspan=2, padx =(160, 160), pady=20, sticky = "ew")
+        ).grid(row=5, column=0, columnspan=2, padx =(160, 160), pady=20, sticky = "ew")
+

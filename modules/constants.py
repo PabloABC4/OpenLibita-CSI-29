@@ -1,0 +1,3 @@
+FONT = ("Roboto", 14)
+FGCOLOR = "#E0DFDF"
+BORDERCOLOR = "#c2c0c0"

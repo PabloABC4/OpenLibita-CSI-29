@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import customtkinter as ctk
 from PIL import Image
 import backend
+from modules.common import LabelEntry
 
 
 def add_book(main_frame):
@@ -55,35 +56,15 @@ def add_book(main_frame):
         )
         label_citacao.pack(side="bottom", padx=20, pady=20, anchor="se")
 
-    ctk.CTkLabel(main_frame, text="Titulo:", font=("Roboto", 14)).grid(row=0, column=0, padx=(120,0), pady=(120,5), sticky="ew")
-    title_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o Título", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    title_entry.grid(row=1, column=0, padx=(120,0), pady=(0,10), sticky = "ew")
+    title_entry = LabelEntry(main_frame, "Título", 0, 0, (120, 0), (120, 5), (120, 0), (0, 10))
+    num_edicao_entry = LabelEntry(main_frame, "Número da Edição", 0, 2, (0, 100), (120, 5), (0, 100), (0, 10))
+    num_exemplar_entry = LabelEntry(main_frame, "Número do Exemplar", 2, 0, (120, 0), (10, 5), (120, 0), (0, 10))
+    volume_entry = LabelEntry(main_frame, "Volume do Livro", 2, 2, (0, 100), (10, 5), (0, 100), (0, 10))
+    id_editora_entry = LabelEntry(main_frame, "ID da Editora", 4, 0, (120, 0), (10, 5), (120, 0), (0, 10))
+    id_assunto_entry = LabelEntry(main_frame, "ID do Assunto", 4, 2, (0, 100), (10, 5), (0, 100), (0, 10))
+    id_localizacao_entry = LabelEntry(main_frame, "ID da Localização", 6, 1, 0, (10, 5), 0, 10)
 
-    ctk.CTkLabel(main_frame, text="Número da Edição:", font=("Roboto", 14)).grid(row=0, column=2, padx=(0,100), pady=(120,5), sticky="ew")
-    num_edicao_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o Nº da Edição", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    num_edicao_entry.grid(row=1, column=2, padx=(0,100), pady=(0,10), sticky = "ew")
-
-    ctk.CTkLabel(main_frame, text="Número do Exemplar:", font=("Roboto", 14)).grid(row=2, column=0, padx=(120,0), pady=(10,5), sticky="ew")
-    num_exemplar_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o Nº do Exemplar", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    num_exemplar_entry.grid(row=3, column=0, padx=(120,0), pady=(0,10), sticky = "ew")
-
-    ctk.CTkLabel(main_frame, text="Volume do Livro:", font=("Roboto", 14)).grid(row=2, column=2, padx=(0,100), pady=(10,5), sticky="ew")
-    volume_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o Volume do Livro", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    volume_entry.grid(row=3, column=2, padx=(0,100), pady=(0,10), sticky = "ew")
-
-    ctk.CTkLabel(main_frame, text="ID da Editora:", font=("Roboto", 14)).grid(row=4, column=0, padx=(120,0), pady=(10,5), sticky="ew")
-    id_editora_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID da Editora", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    id_editora_entry.grid(row=5, column=0, padx=(120,0), pady=(0,10), sticky = "ew")
-
-    ctk.CTkLabel(main_frame, text="ID do Assunto:", font=("Roboto", 14)).grid(row=4, column=2, padx=(0,100), pady=(10,5), sticky="ew")
-    id_assunto_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Assunto", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    id_assunto_entry.grid(row=5, column=2, padx=(0,100), pady=(0,10), sticky = "ew")
-
-    ctk.CTkLabel(main_frame, text="ID da Localização:", font=("Roboto", 14)).grid(row=6, column=1, pady=(10,5), sticky="ew")
-    id_localizacao_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Localização", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    id_localizacao_entry.grid(row=7, column=1, pady=10)
-
-        # Botão centralizado na tela
+    # Botão centralizado na tela
     realizar_emprestimo_button = ctk.CTkButton(main_frame,
         text="Adicionar Livro", 
         font=("Roboto", 14, 'bold'), 

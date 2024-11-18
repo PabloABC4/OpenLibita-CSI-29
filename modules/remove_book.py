@@ -157,8 +157,8 @@ def remove_book(main_frame):
 
     display_books()
 
-    ctk.CTkLabel(main_frame, text="ID do Empréstimo:", font=("Roboto", 14)).grid(row=3, column=0, padx=(80, 0), pady=(20, 5), sticky='w')
-    book_id_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Empréstimo", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
+    ctk.CTkLabel(main_frame, text="ID do Livro:", font=("Roboto", 14)).grid(row=3, column=0, padx=(80, 0), pady=(20, 5), sticky='w')
+    book_id_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Livro", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
     book_id_entry.grid(row=3, column=1, pady=(20, 5), sticky='w')
 
     ctk.CTkButton(
