@@ -94,7 +94,7 @@ def add_book(main_frame):
         border_width=1,
         border_color="#585c45",
         command=submit_book)
-    realizar_emprestimo_button.grid(row=8, column=1, pady=40, sticky ="ew")
+    realizar_emprestimo_button.grid(row=8, column=1, pady=40, sticky="ew")
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     main_frame.grid_columnconfigure(1, weight=1)

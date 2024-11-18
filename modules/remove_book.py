@@ -139,7 +139,7 @@ def remove_book(main_frame):
         border_color="#585c45",
         command=previous_page
     )
-    previous_page_button.grid(row=2, column=0, padx=(80, 10), pady=10, sticky="w")
+    previous_page_button.grid(row=2, column=0, padx=(80, 5), pady=10, sticky="w")
 
     next_page_button = ctk.CTkButton(
         main_frame, 
@@ -153,7 +153,7 @@ def remove_book(main_frame):
         border_color="#585c45",
         command=next_page
     )
-    next_page_button.grid(row=2, column=8, padx=(10, 80), pady=10, sticky="e")
+    next_page_button.grid(row=2, column=8, padx=(5, 80), pady=10, sticky="e")
 
     display_books()
 

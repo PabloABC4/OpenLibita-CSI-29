@@ -119,3 +119,14 @@ def end_loan(loan_id, loan_end_date):
         conn.close()
     except Exception as e:
         return str(e)
+
+def get_student_loans(student_id):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('SELECT id_emprestimo, id_livro, data_emprestimo, data_prevista_devolucao, data_devolucao, finalizado FROM Emprestimos WHERE id_usuario = ?', (student_id,))
+        loans = cursor.fetchall()
+        conn.close()
+        return loans
+    except Exception as e:
+        return str(e)

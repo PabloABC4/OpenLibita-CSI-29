@@ -60,6 +60,43 @@ def show_students():
         page_index -= 1
         display_students()
 
+    def show_student_loans():
+        student_id = student_id_entry.get()
+        if not student_id:
+            messagebox.showerror("Erro", "ID do aluno é obrigatório.")
+            return
+
+        loans = backend.get_student_loans(student_id)
+        if isinstance(loans, str):
+            messagebox.showerror("Erro", loans)
+            return
+
+        if not loans:
+            messagebox.showinfo("Info", "Nenhum empréstimo encontrado para este aluno.")
+            return
+
+        loans_window = Toplevel()
+        loans_window.title('Empréstimos do Aluno')
+        loans_window.geometry("900x400")
+
+        columns = ('ID Empréstimo', 'ID Livro', 'Data Empréstimo', 'Data Prevista Devolução', 'Data Devolução', 'Finalizado')
+        tree = ttk.Treeview(loans_window, columns=columns, show='headings')
+        for col in columns:
+            tree.heading(col, text=col)
+            tree.column(col, width=150, anchor=CENTER)
+        tree.pack(expand=True, fill=BOTH)
+
+        for loan in loans:
+            formatted_loan = (
+                loan[0],
+                loan[1],
+                loan[2].strftime('%d/%m/%Y'),
+                loan[3].strftime('%d/%m/%Y'),
+                loan[4].strftime('%d/%m/%Y') if loan[4] else '',
+                'Sim' if loan[5] else 'Não'
+            )
+            tree.insert('', END, values=formatted_loan)
+
     page_index = 0
     students_per_page = 10
 
@@ -67,12 +104,29 @@ def show_students():
     for col in columns:
         tree.heading(col, text=col)
         tree.column(col, width=150 if col != "email_usuario" else 200, anchor=CENTER)
-    tree.grid(row=0, column=0, columnspan=2, padx=10, pady=5)
+    tree.grid(row=0, column=0, columnspan=3, padx=10, pady=5)
 
     previous_page_button = Button(new_root, text="Página Anterior", command=previous_page)
-    previous_page_button.grid(row=1, column=0, pady=10)      
+    previous_page_button.grid(row=1, column=0, pady=10, padx=(10, 5))      
 
     next_page_button = Button(new_root, text="Próxima Página", command=next_page)    
-    next_page_button.grid(row=1, column=1, pady=10)
+    next_page_button.grid(row=1, column=2, pady=10, padx=(5, 10))
+
+    student_id_label = Label(new_root, text="Digite abaixo o ID de um aluno para ver seus empréstimos")
+    student_id_label.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky=N)
+
+    student_id_label = Label(new_root, text="ID do Aluno:")
+    student_id_label.grid(row=3, column=0, padx=10, pady=5, sticky=E)
+
+    student_id_entry = Entry(new_root)
+    student_id_entry.grid(row=3, column=1, padx=5, pady=5, stick=W)
+
+    show_loans_button = Button(new_root, text="Mostrar Empréstimos", command=show_student_loans)
+    show_loans_button.grid(row=3, column=2, pady=5, sticky=W)
+
+    # Configure column widths
+    new_root.grid_columnconfigure(0, weight=5)
+    new_root.grid_columnconfigure(1, weight=1)
+    new_root.grid_columnconfigure(2, weight=5)
 
     display_students()

@@ -88,9 +88,8 @@ def add_loan(frame_principal):
         border_width=1,
         border_color="#585c45",
         command=submit_loan)
-    realizar_emprestimo_button.grid(row=4, column=0, columnspan=3, padx=(120,0) , pady=40, sticky ="ew")
+    realizar_emprestimo_button.grid(row=4, column=0, columnspan=3, padx=(120, 0), pady=40, sticky="ew")
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     frame_principal.grid_columnconfigure(1, weight=1)
     frame_principal.grid_columnconfigure(3, weight=1)
- 

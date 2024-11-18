@@ -30,7 +30,7 @@ buttons_data = [
     {"icon": ctk.CTkImage(light_image=Image.open("assets\\returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(main_frame)},
     {"icon": ctk.CTkImage(light_image=Image.open("assets\\addbook.jpeg"), size=(20, 20)), "text": "Adicionar Livro", "command": lambda: add_book(main_frame)},
     {"icon": ctk.CTkImage(light_image=Image.open("assets\\removebook.jpeg"), size=(20, 20)), "text": "Remover Livro", "command": lambda: remove_book(main_frame)},
-    {"icon": ctk.CTkImage(light_image=Image.open("assets\\alunos.jpeg"), size=(20, 20)), "text": "Alunos", "command": show_students},
+    {"icon": ctk.CTkImage(light_image=Image.open("assets\\alunos.jpeg"), size=(20, 20)), "text": "Lista de Alunos", "command": show_students},
 ]
 
 for button_data in buttons_data:
