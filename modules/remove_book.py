@@ -46,10 +46,7 @@ def remove_book(main_frame):
 
         result = backend.remove_book(book_id)
         if isinstance(result, str):
-            if result == "Indisponível":
-                messagebox.showerror("Erro", "Esse livro não pode ser removido pois está sendo emprestado.")
-            else:
-                messagebox.showerror("Erro", result)
+            messagebox.showerror("Erro", result)
         else:
             messagebox.showinfo("Sucesso", "Livro removido com sucesso.")
             restore_mainframe(main_frame)

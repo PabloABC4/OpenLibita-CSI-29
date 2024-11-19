@@ -61,7 +61,7 @@ def remove_book(book_id):
         
         if active_loan:
             conn.close()
-            return "Indisponível"
+            return "Esse livro não pode ser removido pois está sendo emprestado."
         
         cursor.execute('UPDATE Livros SET existente = 0 WHERE id_livro = ?', (book_id,))
         conn.commit()
