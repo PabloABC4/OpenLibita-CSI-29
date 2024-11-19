@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import customtkinter as ctk
 from PIL import Image
 import backend
-from modules.common import LabelEntry, SubmitButton
+from modules.common import LabelEntry, create_button
 
 def remove_book(main_frame):
     """
@@ -79,7 +79,7 @@ def remove_book(main_frame):
         return
     
     page_index = 0
-    books_per_page = 10
+    books_per_page = 7
 
     def display_books():
         for widget in scrollable_frame.winfo_children():
@@ -125,33 +125,8 @@ def remove_book(main_frame):
         page_index -= 1
         display_books()
 
-    previous_page_button = ctk.CTkButton(
-        main_frame, 
-        text="Página Anterior", 
-        font=("Roboto", 14, 'bold'),
-        fg_color="#98a164",
-        hover_color="#5c613e",
-        text_color="#FFFFFF",
-        corner_radius=2,
-        border_width=1,
-        border_color="#585c45",
-        command=previous_page
-    )
-    previous_page_button.grid(row=2, column=0, padx=(80, 5), pady=10, sticky="w")
-
-    next_page_button = ctk.CTkButton(
-        main_frame, 
-        text="Próxima Página", 
-        font=("Roboto", 14, 'bold'),
-        fg_color="#98a164",
-        hover_color="#5c613e",
-        text_color="#FFFFFF",
-        corner_radius=2,
-        border_width=1,
-        border_color="#585c45",
-        command=next_page
-    )
-    next_page_button.grid(row=2, column=8, padx=(5, 80), pady=10, sticky="e")
+    previous_page_button = create_button(main_frame, "Página Anterior", previous_page, row=2, column=0, padx=(80, 5), pady=10, sticky=W)
+    next_page_button = create_button(main_frame, "Próxima Página", next_page, row=2, column=8, padx=(5, 80), pady=10, sticky=E)
 
     display_books()
 
@@ -159,4 +134,4 @@ def remove_book(main_frame):
     book_id_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Livro", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
     book_id_entry.grid(row=3, column=1, pady=(20, 5), sticky='w')
 
-    SubmitButton(main_frame, "Concluir Remoção", submit_removal, 4, 0, 9, (160, 160), 20, sticky=EW)
+    create_button(main_frame, "Concluir Remoção", submit_removal, row=4, column=0, columnspan=9, padx=(160, 160), pady=20, sticky=EW)

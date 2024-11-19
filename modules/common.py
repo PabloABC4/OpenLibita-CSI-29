@@ -12,17 +12,18 @@ class LabelEntry:
     def get(self):
         return self.entry.get()
 
-class SubmitButton:
-    def __init__(self, master, text, command, row=0, column=0, columnspan=1, padx=0, pady=0, sticky="ew"):
-        self.button = ctk.CTkButton(
-            master,
-            text=text,
-            font=BUTTONFONT,
-            fg_color=BUTTONFGCOLOR,
-            hover_color=BUTTONHOVERCOLOR,
-            text_color=BUTTONTEXTCOLOR,
-            corner_radius=2,
-            border_width=1,
-            border_color=BUTTONBORDERCOLOR,
-            command=command
-        ).grid(row=row, column=column, columnspan=columnspan, padx=padx, pady=pady, sticky=sticky)
+def create_button(master, text, command, row=0, column=0, columnspan=1, padx=0, pady=0, sticky="ew"):
+    button = ctk.CTkButton(
+        master,
+        text=text,
+        font=BUTTONFONT,
+        fg_color=BUTTONFGCOLOR,
+        hover_color=BUTTONHOVERCOLOR,
+        text_color=BUTTONTEXTCOLOR,
+        corner_radius=2,
+        border_width=1,
+        border_color=BUTTONBORDERCOLOR,
+        command=command
+    )
+    button.grid(row=row, column=column, columnspan=columnspan, padx=padx, pady=pady, sticky=sticky)
+    return button

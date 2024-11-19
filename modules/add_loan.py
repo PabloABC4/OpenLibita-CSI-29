@@ -4,7 +4,7 @@ from tkinter import messagebox
 from PIL import Image
 import backend
 from datetime import datetime
-from modules.common import LabelEntry, SubmitButton
+from modules.common import LabelEntry, create_button
 
 def add_loan(frame_principal):
     """
@@ -67,7 +67,7 @@ def add_loan(frame_principal):
     data_emprestimo_entry = LabelEntry(frame_principal, "Data do Empréstimo", 2, 0, (120, 0), (10, 5), (120, 0), (0,10))
     data_prevista_devolucao_entry = LabelEntry(frame_principal, "Previsão de Devolução", 2, 2, 10, 10, 10, 10)
 
-    SubmitButton(frame_principal, "Realizar Empréstimo", submit_loan, 4, 0, 3, (120, 0), 40, sticky=EW)
+    create_button(frame_principal, "Realizar Empréstimo", submit_loan, row=4, column=0, columnspan=3, padx=(120, 0), pady=40, sticky=EW)
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     frame_principal.grid_columnconfigure(1, weight=1)

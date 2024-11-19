@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from modules.common import SubmitButton
+from modules.common import create_button
 import backend
 
 def show_students():
@@ -37,16 +37,9 @@ def show_students():
             )
             tree.insert('', END, values=formatted_student)
             
-        if page_index == 0:
-            previous_page_button.config(state=DISABLED)
-        else:
-            previous_page_button.config(state=NORMAL)
+        previous_page_button.configure(state="normal" if page_index > 0 else "disabled")
+        next_page_button.configure(state="normal" if students_per_page * (page_index + 1) < len(students) else "disabled")
 
-        if len(students) <= students_per_page*(page_index + 1):
-            next_page_button.config(state=DISABLED)
-        else:
-            next_page_button.config(state=NORMAL)
-    
     def next_page():
         for item in tree.get_children():
             tree.delete(item)
@@ -107,11 +100,8 @@ def show_students():
         tree.column(col, width=150 if col != "email_usuario" else 200, anchor=CENTER)
     tree.grid(row=0, column=0, columnspan=3, padx=10, pady=5)
 
-    previous_page_button = Button(new_root, text="Página Anterior", command=previous_page)
-    previous_page_button.grid(row=1, column=0, pady=10, padx=(10, 5))      
-
-    next_page_button = Button(new_root, text="Próxima Página", command=next_page)    
-    next_page_button.grid(row=1, column=2, pady=10, padx=(5, 10))
+    previous_page_button = create_button(new_root, "Página Anterior", previous_page, row=1, column=0, pady=10, padx=(10, 5), sticky='')
+    next_page_button = create_button(new_root, "Próxima Página", next_page, row=1, column=2, pady=10, padx=(5, 10), sticky='')
 
     student_id_label = Label(new_root, text="Digite abaixo o ID de um aluno para ver seus empréstimos")
     student_id_label.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky=N)
@@ -123,7 +113,7 @@ def show_students():
     student_id_entry.grid(row=3, column=1, padx=5, pady=5, stick=W)
 
 
-    SubmitButton(new_root, "Mostrar Empréstimos", show_student_loans, 3, 2, pady=5, sticky=W)
+    create_button(new_root, "Mostrar Empréstimos", show_student_loans, row=3, column=2, pady=5, sticky=W)
 
     # Configure column widths
     new_root.grid_columnconfigure(0, weight=5)

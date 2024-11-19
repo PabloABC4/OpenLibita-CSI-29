@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import customtkinter as ctk
 from PIL import Image
 import backend
-from modules.common import LabelEntry, SubmitButton
+from modules.common import LabelEntry, create_button
 
 
 def add_book(main_frame):
@@ -64,7 +64,7 @@ def add_book(main_frame):
     id_assunto_entry = LabelEntry(main_frame, "ID do Assunto", 4, 2, (0, 100), (10, 5), (0, 100), (0, 10))
     id_localizacao_entry = LabelEntry(main_frame, "ID da Localização", 6, 1, 0, (10, 5), 0, 10)
 
-    SubmitButton(main_frame, "Adicionar Livro", submit_book, 8, 1, 1, 40, sticky=EW)
+    create_button(main_frame, "Adicionar Livro", submit_book, row=8, column=1, columnspan=1, padx=40, sticky=EW)
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     main_frame.grid_columnconfigure(1, weight=1)

@@ -4,7 +4,7 @@ import customtkinter as ctk
 from PIL import Image
 import backend
 from datetime import datetime
-from modules.common import LabelEntry, SubmitButton
+from modules.common import LabelEntry, create_button
 
 def end_loan(main_frame):
     """
@@ -120,29 +120,8 @@ def end_loan(main_frame):
         page_index -= 1
         display_loans()
 
-    previous_page_button = ctk.CTkButton(main_frame, 
-        text="Página Anterior", 
-        font=("Roboto", 14, 'bold'),
-        fg_color="#98a164",
-        hover_color="#5c613e",
-        text_color="#FFFFFF",
-        corner_radius=2,
-        border_width=1,
-        border_color="#585c45",
-        command=previous_page)
-    previous_page_button.grid(row=1, column=0, padx=(100, 5), pady=10, sticky="w")
-
-    next_page_button =  ctk.CTkButton(main_frame, 
-        text="Próxima Página", 
-        font=("Roboto", 14, 'bold'),
-        fg_color="#98a164",
-        hover_color="#5c613e",
-        text_color="#FFFFFF",
-        corner_radius=2,
-        border_width=1,
-        border_color="#585c45",
-        command=next_page)
-    next_page_button.grid(row=1, column=1, padx=(0, 100), pady=10, sticky="e")
+    previous_page_button = create_button(main_frame, "Página Anterior", previous_page, row=1, column=0, padx=(100, 5), pady=10, sticky=W)
+    next_page_button = create_button(main_frame, "Próxima Página", next_page, row=1, column=1, padx=(0, 100), pady=10, sticky=E)
 
     main_frame.grid_rowconfigure(2, minsize=50)  # Add this line to set the height of row 2
 
@@ -151,4 +130,4 @@ def end_loan(main_frame):
     loan_id_entry = LabelEntry(main_frame, "ID do Empréstimo", 3, 0, 0, 5, 100, 5)
     loan_end_date_entry = LabelEntry(main_frame, "Data real de Devolução", 3, 1, 0, 5, 100, 5)
 
-    SubmitButton(main_frame, "Concluir Devolução", submit_ending, 5, 0, 2, (160, 160), 20, sticky=EW)
+    create_button(main_frame, "Concluir Devolução", submit_ending, row=5, column=0, columnspan=2, padx=(160, 160), pady=20, sticky=EW)
