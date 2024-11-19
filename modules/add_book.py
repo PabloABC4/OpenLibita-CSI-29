@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import customtkinter as ctk
 from PIL import Image
 import backend
-from modules.common import LabelEntry
+from modules.common import LabelEntry, SubmitButton
 
 
 def add_book(main_frame):
@@ -64,18 +64,7 @@ def add_book(main_frame):
     id_assunto_entry = LabelEntry(main_frame, "ID do Assunto", 4, 2, (0, 100), (10, 5), (0, 100), (0, 10))
     id_localizacao_entry = LabelEntry(main_frame, "ID da Localização", 6, 1, 0, (10, 5), 0, 10)
 
-    # Botão centralizado na tela
-    realizar_emprestimo_button = ctk.CTkButton(main_frame,
-        text="Adicionar Livro", 
-        font=("Roboto", 14, 'bold'), 
-        fg_color="#98a164",
-        hover_color="#5c613e",
-        text_color="#FFFFFF",
-        corner_radius=2,
-        border_width=1,
-        border_color="#585c45",
-        command=submit_book)
-    realizar_emprestimo_button.grid(row=8, column=1, pady=40, sticky="ew")
+    SubmitButton(main_frame, "Adicionar Livro", submit_book, 8, 1, 1, 40, sticky=EW)
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     main_frame.grid_columnconfigure(1, weight=1)

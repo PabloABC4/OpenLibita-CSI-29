@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
+from modules.common import SubmitButton
 import backend
 
 def show_students():
@@ -121,8 +122,8 @@ def show_students():
     student_id_entry = Entry(new_root)
     student_id_entry.grid(row=3, column=1, padx=5, pady=5, stick=W)
 
-    show_loans_button = Button(new_root, text="Mostrar Empréstimos", command=show_student_loans)
-    show_loans_button.grid(row=3, column=2, pady=5, sticky=W)
+
+    SubmitButton(new_root, "Mostrar Empréstimos", show_student_loans, 3, 2, pady=5, sticky=W)
 
     # Configure column widths
     new_root.grid_columnconfigure(0, weight=5)

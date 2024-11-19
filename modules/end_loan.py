@@ -4,7 +4,7 @@ import customtkinter as ctk
 from PIL import Image
 import backend
 from datetime import datetime
-from modules.common import LabelEntry
+from modules.common import LabelEntry, SubmitButton
 
 def end_loan(main_frame):
     """
@@ -149,18 +149,6 @@ def end_loan(main_frame):
     display_loans()
 
     loan_id_entry = LabelEntry(main_frame, "ID do Empréstimo", 3, 0, 0, 5, 100, 5)
-
     loan_end_date_entry = LabelEntry(main_frame, "Data real de Devolução", 3, 1, 0, 5, 100, 5)
 
-    ctk.CTkButton(main_frame, 
-        text="Concluir Devolução", 
-        font=("Roboto", 14, 'bold'),
-        fg_color="#98a164",
-        hover_color="#5c613e",
-        text_color="#FFFFFF",
-        corner_radius=2,
-        border_width=1,
-        border_color="#585c45",
-        command=submit_ending
-        ).grid(row=5, column=0, columnspan=2, padx =(160, 160), pady=20, sticky = "ew")
-
+    SubmitButton(main_frame, "Concluir Devolução", submit_ending, 5, 0, 2, (160, 160), 20, sticky=EW)
