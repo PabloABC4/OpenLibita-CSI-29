@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from modules.common import create_button
+from modules.common import create_button, create_label, create_entry
 import backend
 
 def show_students():
@@ -100,20 +100,13 @@ def show_students():
         tree.column(col, width=150 if col != "email_usuario" else 200, anchor=CENTER)
     tree.grid(row=0, column=0, columnspan=3, padx=10, pady=5)
 
-    previous_page_button = create_button(new_root, "Página Anterior", previous_page, row=1, column=0, pady=10, padx=(10, 5), sticky='')
-    next_page_button = create_button(new_root, "Próxima Página", next_page, row=1, column=2, pady=10, padx=(5, 10), sticky='')
+    previous_page_button = create_button(new_root, "Página Anterior", previous_page, row=1, column=0, pady=10, padx=(10, 5))
+    next_page_button = create_button(new_root, "Próxima Página", next_page, row=1, column=2, pady=10, padx=(5, 10))
 
-    student_id_label = Label(new_root, text="Digite abaixo o ID de um aluno para ver seus empréstimos")
-    student_id_label.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky=N)
+    student_id_label = create_label(new_root, "ID do Aluno", row=3, column=0, padx=10, pady=5, sticky=E)
+    student_id_entry = create_entry(new_root, "ID do Aluno...", row=3, column=1, padx=5, pady=5, sticky=EW)
 
-    student_id_label = Label(new_root, text="ID do Aluno:")
-    student_id_label.grid(row=3, column=0, padx=10, pady=5, sticky=E)
-
-    student_id_entry = Entry(new_root)
-    student_id_entry.grid(row=3, column=1, padx=5, pady=5, stick=W)
-
-
-    create_button(new_root, "Mostrar Empréstimos", show_student_loans, row=3, column=2, pady=5, sticky=W)
+    create_button(new_root, "Mostrar Empréstimos", show_student_loans, row=3, column=2, padx=20, pady=5, sticky=W)
 
     # Configure column widths
     new_root.grid_columnconfigure(0, weight=5)

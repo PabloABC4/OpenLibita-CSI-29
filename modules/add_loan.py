@@ -4,7 +4,7 @@ from tkinter import messagebox
 from PIL import Image
 import backend
 from datetime import datetime
-from modules.common import LabelEntry, create_button
+from modules.common import create_label, create_entry, create_button
 
 def add_loan(frame_principal):
     """
@@ -62,12 +62,19 @@ def add_loan(frame_principal):
 
     
     # Configuração dos campos de entrada com grid
-    id_livro_entry = LabelEntry(frame_principal, "ID do Livro", 0, 0, (120, 0), (120, 5), (120, 0), 10)
-    id_usuario_entry = LabelEntry(frame_principal, "ID do Aluno", 0, 2, 10, (120, 5), 10, 10)
-    data_emprestimo_entry = LabelEntry(frame_principal, "Data do Empréstimo", 2, 0, (120, 0), (10, 5), (120, 0), (0,10))
-    data_prevista_devolucao_entry = LabelEntry(frame_principal, "Previsão de Devolução", 2, 2, 10, 10, 10, 10)
+    id_livro_label = create_label(frame_principal, "ID do Livro", row=0, column=0, padx=(120, 0), pady=(120, 5), sticky=EW)
+    id_livro_entry = create_entry(frame_principal, "ID do Livro...", row=1, column=0, padx=(120, 0), pady=10, sticky=EW)
+    
+    id_usuario_label = create_label(frame_principal, "ID do Aluno", row=0, column=2, padx=10, pady=(120, 5), sticky=EW)
+    id_usuario_entry = create_entry(frame_principal, "ID do Aluno...", row=1, column=2, padx=10, pady=10, sticky=EW)
+    
+    data_emprestimo_label = create_label(frame_principal, "Data do Empréstimo", row=2, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
+    data_emprestimo_entry = create_entry(frame_principal, "Data do Empréstimo...", row=3, column=0, padx=(120, 0), pady=(0, 10), sticky=EW)
+    
+    data_prevista_devolucao_label = create_label(frame_principal, "Previsão de Devolução", row=2, column=2, padx=10, pady=10, sticky=EW)
+    data_prevista_devolucao_entry = create_entry(frame_principal, "Previsão de Devolução...", row=3, column=2, padx=10, pady=10, sticky=EW)
 
-    create_button(frame_principal, "Realizar Empréstimo", submit_loan, row=4, column=0, columnspan=3, padx=(120, 0), pady=40, sticky=EW)
+    create_button(frame_principal, "Realizar Empréstimo", submit_loan, row=4, column=0, columnspan=3, padx=(120, 0), pady=40)
 
     # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
     frame_principal.grid_columnconfigure(1, weight=1)

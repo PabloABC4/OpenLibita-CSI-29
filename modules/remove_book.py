@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import customtkinter as ctk
 from PIL import Image
 import backend
-from modules.common import LabelEntry, create_button
+from modules.common import create_button, create_entry, create_label
 
 def remove_book(main_frame):
     """
@@ -130,8 +130,7 @@ def remove_book(main_frame):
 
     display_books()
 
-    ctk.CTkLabel(main_frame, text="ID do Livro:", font=("Roboto", 14)).grid(row=3, column=0, padx=(80, 0), pady=(20, 5), sticky='w')
-    book_id_entry = ctk.CTkEntry(main_frame, placeholder_text="Digite o ID do Livro", fg_color="#E0DFDF", corner_radius=2, border_color="#c2c0c0", border_width=1)
-    book_id_entry.grid(row=3, column=1, pady=(20, 5), sticky='w')
+    book_id_label = create_label(main_frame, "ID do Livro", row=3, column=0, padx=(80, 0), pady=(20, 5), sticky=E)
+    book_id_entry = create_entry(main_frame, "Digite o ID do Livro", row=3, column=1, padx=(80, 0), pady=(20, 5), sticky=W)
 
-    create_button(main_frame, "Concluir Remoção", submit_removal, row=4, column=0, columnspan=9, padx=(160, 160), pady=20, sticky=EW)
+    create_button(main_frame, "Concluir Remoção", submit_removal, row=4, column=0, padx=(160, 160), pady=20, sticky=EW, columnspan=9)

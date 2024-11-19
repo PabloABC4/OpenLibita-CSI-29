@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox
 import customtkinter as ctk
 from PIL import Image
 import backend
-from modules.common import LabelEntry, create_button
+from modules.common import create_label, create_entry, create_button
 
 
 def add_book(main_frame):
@@ -56,17 +56,25 @@ def add_book(main_frame):
         )
         label_citacao.pack(side="bottom", padx=20, pady=20, anchor="se")
 
-    title_entry = LabelEntry(main_frame, "Título", 0, 0, (120, 0), (120, 5), (120, 0), (0, 10))
-    num_edicao_entry = LabelEntry(main_frame, "Número da Edição", 0, 2, (0, 100), (120, 5), (0, 100), (0, 10))
-    num_exemplar_entry = LabelEntry(main_frame, "Número do Exemplar", 2, 0, (120, 0), (10, 5), (120, 0), (0, 10))
-    volume_entry = LabelEntry(main_frame, "Volume do Livro", 2, 2, (0, 100), (10, 5), (0, 100), (0, 10))
-    id_editora_entry = LabelEntry(main_frame, "ID da Editora", 4, 0, (120, 0), (10, 5), (120, 0), (0, 10))
-    id_assunto_entry = LabelEntry(main_frame, "ID do Assunto", 4, 2, (0, 100), (10, 5), (0, 100), (0, 10))
-    id_localizacao_entry = LabelEntry(main_frame, "ID da Localização", 6, 1, 0, (10, 5), 0, 10)
+    title_label = create_label(main_frame, "Título", row=0, column=0, padx=(120, 0), pady=(120, 5), sticky=EW)
+    title_entry = create_entry(main_frame, "Título...", row=1, column=0, padx=(120, 0), pady=10, sticky=EW)
+    
+    num_edicao_label = create_label(main_frame, "Número da Edição", row=0, column=2, padx=(0, 100), pady=(120, 5), sticky=EW)
+    num_edicao_entry = create_entry(main_frame, "Número da Edição...", row=1, column=2, padx=(0, 100), pady=10, sticky=EW)
+    
+    num_exemplar_label = create_label(main_frame, "Número do Exemplar", row=2, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
+    num_exemplar_entry = create_entry(main_frame, "Número do Exemplar...", row=3, column=0, padx=(120, 0), pady=10, sticky=EW)
+    
+    volume_label = create_label(main_frame, "Volume do Livro", row=2, column=2, padx=(0, 100), pady=(10, 5), sticky=EW)
+    volume_entry = create_entry(main_frame, "Volume do Livro...", row=3, column=2, padx=(0, 100), pady=10, sticky=EW)
+    
+    id_editora_label = create_label(main_frame, "ID da Editora", row=4, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
+    id_editora_entry = create_entry(main_frame, "ID da Editora...", row=5, column=0, padx=(120, 0), pady=10, sticky=EW)
+    
+    id_assunto_label = create_label(main_frame, "ID do Assunto", row=4, column=2, padx=(0, 100), pady=(10, 5), sticky=EW)
+    id_assunto_entry = create_entry(main_frame, "ID do Assunto...", row=5, column=2, padx=(0, 100), pady=10, sticky=EW)
+    
+    id_localizacao_label = create_label(main_frame, "ID da Localização", row=6, column=1, pady=(10, 5), sticky=EW)
+    id_localizacao_entry = create_entry(main_frame, "ID da Localização...", row=7, column=1, pady=10, sticky=EW)
 
-    create_button(main_frame, "Adicionar Livro", submit_book, row=8, column=1, columnspan=1, padx=40, sticky=EW)
-
-    # Expande as colunas 1 e 3 para que os campos de entrada possam crescer horizontalmente
-    main_frame.grid_columnconfigure(1, weight=1)
-    main_frame.grid_columnconfigure(2, weight=1)
-    main_frame.grid_columnconfigure(3, weight=1)
+    create_button(main_frame, "Adicionar Livro", submit_book, row=8, column=1, columnspan=1, padx=40, pady=10)

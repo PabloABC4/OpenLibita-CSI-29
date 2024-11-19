@@ -1,18 +1,25 @@
 import customtkinter as ctk
-from modules.constants import *
 
-class LabelEntry:
-    def __init__(self, master, text, row, column, labelpadx, labelpady, entrypadx, entrypady):
-        self.label = ctk.CTkLabel(master, text=text+":", font=LABELFONT)
-        self.label.grid(row=row, column=column, padx=labelpadx, pady=labelpady, sticky="ew")
+LABELFONT = ("Roboto", 14)
+BUTTONFONT = ("Roboto", 14, "bold")
+ENTRYFGCOLOR = "#E0DFDF"
+ENTRYBORDERCOLOR = "#c2c0c0"
+BUTTONFGCOLOR = "#98a164"
+BUTTONHOVERCOLOR = "#5c613e"
+BUTTONTEXTCOLOR = "#FFFFFF"
+BUTTONBORDERCOLOR = "#585c45"
 
-        self.entry = ctk.CTkEntry(master, placeholder_text=text + "...", fg_color=ENTRYFGCOLOR, corner_radius=2, border_color=ENTRYBORDERCOLOR, border_width=1)
-        self.entry.grid(row=row+1, column=column, padx=entrypadx, pady=entrypady, sticky="ew")
+def create_label(master, text, row=0, column=0, columnspan=1, padx=0, pady=0, sticky=""):
+    label = ctk.CTkLabel(master, text=text+":", font=LABELFONT)
+    label.grid(row=row, column=column, padx=padx, pady=pady, columnspan=columnspan, sticky=sticky)
+    return label
 
-    def get(self):
-        return self.entry.get()
+def create_entry(master, placeholder_text, row=0, column=0, columnspan=1, padx=0, pady=0, sticky=""):
+    entry = ctk.CTkEntry(master, placeholder_text=placeholder_text, fg_color=ENTRYFGCOLOR, corner_radius=2, border_color=ENTRYBORDERCOLOR, border_width=1)
+    entry.grid(row=row, column=column, columnspan=columnspan, padx=padx, pady=pady, sticky=sticky)
+    return entry
 
-def create_button(master, text, command, row=0, column=0, columnspan=1, padx=0, pady=0, sticky="ew"):
+def create_button(master, text, command, row=0, column=0, columnspan=1, padx=0, pady=0, sticky=""):
     button = ctk.CTkButton(
         master,
         text=text,

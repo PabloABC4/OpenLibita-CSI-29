@@ -4,7 +4,7 @@ import customtkinter as ctk
 from PIL import Image
 import backend
 from datetime import datetime
-from modules.common import LabelEntry, create_button
+from modules.common import create_label, create_entry, create_button
 
 def end_loan(main_frame):
     """
@@ -127,7 +127,10 @@ def end_loan(main_frame):
 
     display_loans()
 
-    loan_id_entry = LabelEntry(main_frame, "ID do Empréstimo", 3, 0, 0, 5, 100, 5)
-    loan_end_date_entry = LabelEntry(main_frame, "Data real de Devolução", 3, 1, 0, 5, 100, 5)
+    loan_id_label = create_label(main_frame, "ID do Empréstimo", row=3, column=0, padx=0, pady=5, sticky=EW)
+    loan_id_entry = create_entry(main_frame, "ID do Empréstimo...", row=4, column=0, padx=100, pady=5, sticky=EW)
+    
+    loan_end_date_label = create_label(main_frame, "Data real de Devolução", row=3, column=1, padx=0, pady=5, sticky=EW)
+    loan_end_date_entry = create_entry(main_frame, "Data real de Devolução...", row=4, column=1, padx=100, pady=5, sticky=EW)
 
-    create_button(main_frame, "Concluir Devolução", submit_ending, row=5, column=0, columnspan=2, padx=(160, 160), pady=20, sticky=EW)
+    create_button(main_frame, "Concluir Devolução", submit_ending, row=5, column=0, columnspan=2, padx=(160, 160), pady=20)
