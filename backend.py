@@ -104,10 +104,11 @@ def get_loans():
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM Emprestimos WHERE finalizado = 0')
         loans = cursor.fetchall()
+        columns = [column[0] for column in cursor.description]
         conn.close()
-        return loans
+        return loans, columns
     except Exception as e:
-        return str(e)
+        return str(e), []
     
 def end_loan(loan_id, loan_end_date):
     try:
