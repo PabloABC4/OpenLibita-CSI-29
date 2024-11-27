@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk, messagebox
 from modules.common import create_button, create_label, create_entry
-import backend
+import modules.backend as backend
 
 def show_students():
     """
