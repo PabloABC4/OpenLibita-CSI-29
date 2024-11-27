@@ -42,44 +42,15 @@ Os principais requisitos funcionais do OpenLibita incluem:
 
 ## Estrutura de Banco de Dados
 O banco de dados do OpenLibita é projetado para suportar as funcionalidades mencionadas acima, com as seguintes tabelas principais:
-- **Livro**: (id_livro, num_edicao, num_exemplar, volume, titulo)
-- **Editora**: (id_editora, nome_editora)
-- **Assunto**: (id_assunto, nome_assunto)
-- **Doador**: (id_doador, nome_doador, data_doacao, cpf_doador)
-- **Localização**: (id_localizacao, corredor, prateleira, andar, estante)
-- **Autor**: (id_autor, nome_autor)
-- **Usuário**: (id_usuario, identidade_usuario, email_usuario, telefone_trabalho, telefone_celular, ramal_usuario, cpf_usuario, nome_usuario)
-- **Tipo**: (id_tipo_usuario, nome_tipo_usuario)
-- **Empréstimo**: (data_emprestimo, data_prevista_devolucao, data_devolucao)
+- **Livro**: (id_livro, titulo, editora, em_emprestimo, existente)
+- **Aluno**: (id_aluno, nome_aluno, email_aluno, telefone_celular)
+- **Empréstimo**: (id_emprestimo, id_aluno, data_emprestimo, data_prevista_devolucao, data_devolucao, finalizado)
 
 ## Tecnologias Utilizadas
 - **Linguagem de Programação Principal**: Python
 - **Interface Gráfica**: Biblioteca `Tkinter`
 - **Banco de Dados**: SQL Server, acessado por meio da biblioteca `pyodbc`
 - **Frameworks e Ferramentas**: SSMS para gerenciamento do servidor de banco de dados
-
-<!-- ## Como Executar o Projeto
-1. Certifique-se de que o Python e o driver ODBC para SQL Server estão instalados.
-2. Clone o repositório do projeto.
-3. Configure as credenciais de conexão com o banco de dados no arquivo Python principal.
-4. Execute o script para verificar a conectividade e listar as tabelas disponíveis:
-    ```python
-    import pyodbc
-
-    conn = pyodbc.connect(
-        'DRIVER={ODBC Driver 17 for SQL Server};'
-        'SERVER=SEU_SERVIDOR;'
-        'DATABASE=Library;'
-        'Trusted_Connection=yes;'
-    )
-
-    cursor = conn.cursor()
-    cursor.execute('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = \'BASE TABLE\';')
-    for row in cursor.fetchall():
-        print(row.TABLE_NAME)
-    
-    conn.close()
-    ``` -->
 
 ## Considerações Finais
 O OpenLibita é um projeto de software livre, desenvolvido com o objetivo de atender à demanda de gerenciamento de bibliotecas escolares, mas também adaptável para outras aplicações similares. Funcionalidades futuras e melhorias serão implementadas conforme o feedback dos usuários e as necessidades adicionais surgirem.
