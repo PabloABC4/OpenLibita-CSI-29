@@ -30,10 +30,6 @@ def show_students():
                 student[1],
                 student[2],
                 student[3],
-                student[4],
-                student[5],
-                student[6],
-                student[7]
             )
             tree.insert('', END, values=formatted_student)
             
@@ -97,7 +93,7 @@ def show_students():
     tree = ttk.Treeview(new_root, columns=columns, show='headings')
     for col in columns:
         tree.heading(col, text=col)
-        tree.column(col, width=150 if col != "email_usuario" else 200, anchor=CENTER)
+        tree.column(col, width=150 if col != "email_aluno" else 200, anchor=CENTER)
     tree.grid(row=0, column=0, columnspan=3, padx=10, pady=5)
 
     previous_page_button = create_button(new_root, "Página Anterior", previous_page, row=1, column=0, pady=10, padx=(10, 5))

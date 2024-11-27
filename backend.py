@@ -17,19 +17,19 @@ def get_books():
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM Livros WHERE existente = 1')
+        cursor.execute('SELECT id_livro, titulo, editora, em_emprestimo FROM Livros WHERE existente = 1')
         books = cursor.fetchall()
         columns = [column[0] for column in cursor.description if column[0] != 'existente']
         conn.close()
         return books, columns
     except Exception as e:
         return str(e), []
-    
+
 def get_students():
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM Usuarios')
+        cursor.execute('SELECT id_aluno, nome_aluno, email_aluno, telefone_celular FROM Alunos')
         students = cursor.fetchall()
         columns = [column[0] for column in cursor.description]
         conn.close()
@@ -37,12 +37,12 @@ def get_students():
     except Exception as e:
         return str(e), []
 
-def add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao):
+def add_book(title, editora):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO Livros (titulo, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao) OUTPUT INSERTED.id_livro VALUES (?, ?, ?, ?, ?, ?, ?)', 
-                       (title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao))
+        cursor.execute('INSERT INTO Livros (titulo, editora) OUTPUT INSERTED.id_livro VALUES (?, ?)', 
+                       (title, editora))
         book_id = cursor.fetchone()[0]
         conn.commit()
         conn.close()
@@ -70,7 +70,7 @@ def remove_book(book_id):
     except Exception as e:
         return str(e)
 
-def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
+def add_loan(id_aluno, id_livro, data_emprestimo, data_prevista_devolucao):
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -86,8 +86,8 @@ def add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao):
         if livro_status[0]:
             return "Esse livro já está sendo emprestado"
         
-        cursor.execute('INSERT INTO Emprestimos (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao) OUTPUT INSERTED.id_emprestimo VALUES (?, ?, ?, ?)', 
-                       (id_usuario, id_livro, data_emprestimo, data_prevista_devolucao))
+        cursor.execute('INSERT INTO Emprestimos (id_aluno, id_livro, data_emprestimo, data_prevista_devolucao) OUTPUT INSERTED.id_emprestimo VALUES (?, ?, ?, ?)', 
+                       (id_aluno, id_livro, data_emprestimo, data_prevista_devolucao))
         loan_id = cursor.fetchone()[0]
         
         cursor.execute('UPDATE Livros SET em_emprestimo = 1 WHERE id_livro = ?', (id_livro,))
@@ -102,7 +102,7 @@ def get_loans():
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM Emprestimos WHERE finalizado = 0')
+        cursor.execute('SELECT id_emprestimo, id_aluno, id_livro, data_emprestimo, data_prevista_devolucao, finalizado FROM Emprestimos WHERE finalizado = 0')
         loans = cursor.fetchall()
         columns = [column[0] for column in cursor.description]
         conn.close()
@@ -125,7 +125,7 @@ def get_student_loans(student_id):
     try:
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT id_emprestimo, id_livro, data_emprestimo, data_prevista_devolucao, data_devolucao, finalizado FROM Emprestimos WHERE id_usuario = ?', (student_id,))
+        cursor.execute('SELECT id_emprestimo, id_livro, data_emprestimo, data_prevista_devolucao, data_devolucao, finalizado FROM Emprestimos WHERE id_aluno = ?', (student_id,))
         loans = cursor.fetchall()
         conn.close()
         return loans

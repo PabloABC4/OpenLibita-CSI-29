@@ -9,13 +9,8 @@ Adiciona um livro ao sistema.
 ### São necessários:
 
 ```
-Título
-Número da Edição
-Número de Exemplar
-Volume
-ID de Editora
-ID de Assunto
-ID de Localização
+Título da Obra
+Nome da Editora
 ```
 
 ## add_loan.py

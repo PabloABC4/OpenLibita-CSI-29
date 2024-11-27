@@ -10,12 +10,7 @@ def format_book(book):
         book[0],
         book[1],
         book[2],
-        book[3],
-        book[4],
-        "Sim" if book[5] else "Não",  # Loan status
-        book[7],
-        book[8],
-        book[9],
+        "Sim" if book[3] else "Não"
     )
 
 def remove_book(master):
@@ -67,8 +62,9 @@ def remove_book(master):
         restore_mainframe(master)
         return
         
-    books_per_page = 2
-    remove_book_pagination = Pagination(master, books, columns, books_per_page, format_book)
+    books_per_page = 5
+    column_widths = [100, 300, 200, 100]  # Example widths for each column
+    remove_book_pagination = Pagination(master, books, columns, books_per_page, format_book, column_widths=column_widths)
 
     book_id_label = create_label(master, "ID do Livro", row=3, column=0, padx=(80, 0), pady=(20, 5), sticky=E)
     book_id_entry = create_entry(master, "Digite o ID do Livro", row=3, column=1, padx=(80, 0), pady=(20, 5), sticky=W)

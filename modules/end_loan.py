@@ -23,7 +23,8 @@ def end_loan(master):
             loan[1],
             loan[2],
             loan[3].strftime('%d/%m/%Y'),
-            loan[4].strftime('%d/%m/%Y')
+            loan[4].strftime('%d/%m/%Y'),
+            "Sim" if loan[5] == 1 else "Não",
         )
     
     def submit_ending():
@@ -80,8 +81,9 @@ def end_loan(master):
 
     master.grid_rowconfigure(2, minsize=50)  # Add this line to set the height of row 2
 
-    loans_per_page = 5
-    Pagination(master, loans, columns, loans_per_page, format_loan)
+    items_per_page=5
+    column_widths = [70, 70, 70, 200, 200, 100]
+    Pagination(master, loans, columns, items_per_page, format_loan, column_widths=column_widths)
 
     loan_id_label = create_label(master, "ID do Empréstimo", row=3, column=0, padx=0, pady=5, sticky=EW)
     loan_id_entry = create_entry(master, "ID do Empréstimo...", row=4, column=0, padx=100, pady=5, sticky=EW)

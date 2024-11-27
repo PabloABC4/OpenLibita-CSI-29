@@ -19,12 +19,12 @@ def add_loan(frame_principal):
 
     # Cria widgets de entrada e botões no frame_principal
     def submit_loan():
-        id_usuario = id_usuario_entry.get()
+        id_aluno = id_aluno_entry.get()
         id_livro = id_livro_entry.get()
         data_emprestimo = data_emprestimo_entry.get()
         data_prevista_devolucao = data_prevista_devolucao_entry.get()
 
-        if not id_usuario or not id_livro or not data_emprestimo or not data_prevista_devolucao:
+        if not id_aluno or not id_livro or not data_emprestimo or not data_prevista_devolucao:
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
         
@@ -36,12 +36,12 @@ def add_loan(frame_principal):
             messagebox.showerror("Erro", "Datas inválidas. Use o formato DD/MM/AAAA.")
             return
 
-        result = backend.add_loan(id_usuario, id_livro, data_emprestimo, data_prevista_devolucao)
+        result = backend.add_loan(id_aluno, id_livro, data_emprestimo, data_prevista_devolucao)
         if isinstance(result, str):
             messagebox.showerror("Erro", result)
         else:
             messagebox.showinfo("Sucesso", "Empréstimo adicionado com sucesso.")
-            restaurar_frame_principal(frame_principal)  # Restaura o frame original após o envio
+            restaurar_frame_principal(frame_principal)
 
     # Cria função para restaurar o frame_principal com a imagem e citação
     def restaurar_frame_principal(frame_principal):
@@ -65,8 +65,8 @@ def add_loan(frame_principal):
     id_livro_label = create_label(frame_principal, "ID do Livro", row=0, column=0, padx=(120, 0), pady=(120, 5), sticky=EW)
     id_livro_entry = create_entry(frame_principal, "ID do Livro...", row=1, column=0, padx=(120, 0), pady=10, sticky=EW)
     
-    id_usuario_label = create_label(frame_principal, "ID do Aluno", row=0, column=2, padx=10, pady=(120, 5), sticky=EW)
-    id_usuario_entry = create_entry(frame_principal, "ID do Aluno...", row=1, column=2, padx=10, pady=10, sticky=EW)
+    id_aluno_label = create_label(frame_principal, "ID do Aluno", row=0, column=2, padx=10, pady=(120, 5), sticky=EW)
+    id_aluno_entry = create_entry(frame_principal, "ID do Aluno...", row=1, column=2, padx=10, pady=10, sticky=EW)
     
     data_emprestimo_label = create_label(frame_principal, "Data do Empréstimo", row=2, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
     data_emprestimo_entry = create_entry(frame_principal, "Data do Empréstimo...", row=3, column=0, padx=(120, 0), pady=(0, 10), sticky=EW)

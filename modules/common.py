@@ -37,12 +37,13 @@ def create_button(master, text, command, row=0, column=0, columnspan=1, padx=0, 
     return button
 
 class Pagination:
-    def __init__(self, master, data, columns, items_per_page, format_func):
+    def __init__(self, master, data, columns, items_per_page, format_func, column_widths=None):
         self.data = data
         self.columns = columns      
         self.items_per_page = items_per_page
         self.current_index = 0
         self.format = format_func
+        self.column_widths = column_widths if column_widths else [100] * len(columns)
 
         for widget in master.winfo_children():
             widget.destroy()
@@ -83,11 +84,10 @@ class Pagination:
         for widget in self.scrollable_frame.winfo_children():
             widget.destroy()
 
-        for col in self.columns:
+        for col_index, col in enumerate(self.columns):
             col_label = ctk.CTkLabel(master=self.scrollable_frame, text=col, font=("Roboto", 12, 'bold'))
-            col_index = self.columns.index(col)
             col_label.grid(row=0, column=col_index, padx=5, pady=2, sticky='ew')
-            self.scrollable_frame.grid_columnconfigure(col_index, weight=1)
+            self.scrollable_frame.grid_columnconfigure(col_index, weight=1, minsize=self.column_widths[col_index])
 
         current_page_data = self.data[self.items_per_page * self.current_index: self.items_per_page * (self.current_index + 1)]
         for i, item in enumerate(current_page_data):

@@ -21,18 +21,13 @@ def add_book(main_frame):
 
     def submit_book():
         title = title_entry.get()
-        num_edicao = num_edicao_entry.get()
-        num_exemplar = num_exemplar_entry.get()
-        volume = volume_entry.get()
-        id_editora = id_editora_entry.get()
-        id_assunto = id_assunto_entry.get()
-        id_localizacao = id_localizacao_entry.get()
+        editora = editora_entry.get()
 
-        if not title or not num_edicao or not num_exemplar or not volume or not id_editora or not id_assunto or not id_localizacao:
+        if not title or not editora:
             messagebox.showerror("Erro", "Todos os campos são obrigatórios.")
             return
 
-        book_id = backend.add_book(title, num_edicao, num_exemplar, volume, id_editora, id_assunto, id_localizacao)
+        book_id = backend.add_book(title, editora)
         if isinstance(book_id, str):
             messagebox.showerror("Erro", book_id)
         else:
@@ -59,22 +54,7 @@ def add_book(main_frame):
     title_label = create_label(main_frame, "Título", row=0, column=0, padx=(120, 0), pady=(120, 5), sticky=EW)
     title_entry = create_entry(main_frame, "Título...", row=1, column=0, padx=(120, 0), pady=10, sticky=EW)
     
-    num_edicao_label = create_label(main_frame, "Número da Edição", row=0, column=2, padx=(0, 100), pady=(120, 5), sticky=EW)
-    num_edicao_entry = create_entry(main_frame, "Número da Edição...", row=1, column=2, padx=(0, 100), pady=10, sticky=EW)
-    
-    num_exemplar_label = create_label(main_frame, "Número do Exemplar", row=2, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
-    num_exemplar_entry = create_entry(main_frame, "Número do Exemplar...", row=3, column=0, padx=(120, 0), pady=10, sticky=EW)
-    
-    volume_label = create_label(main_frame, "Volume do Livro", row=2, column=2, padx=(0, 100), pady=(10, 5), sticky=EW)
-    volume_entry = create_entry(main_frame, "Volume do Livro...", row=3, column=2, padx=(0, 100), pady=10, sticky=EW)
-    
-    id_editora_label = create_label(main_frame, "ID da Editora", row=4, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
-    id_editora_entry = create_entry(main_frame, "ID da Editora...", row=5, column=0, padx=(120, 0), pady=10, sticky=EW)
-    
-    id_assunto_label = create_label(main_frame, "ID do Assunto", row=4, column=2, padx=(0, 100), pady=(10, 5), sticky=EW)
-    id_assunto_entry = create_entry(main_frame, "ID do Assunto...", row=5, column=2, padx=(0, 100), pady=10, sticky=EW)
-    
-    id_localizacao_label = create_label(main_frame, "ID da Localização", row=6, column=1, pady=(10, 5), sticky=EW)
-    id_localizacao_entry = create_entry(main_frame, "ID da Localização...", row=7, column=1, pady=10, sticky=EW)
+    editora_label = create_label(main_frame, "Editora", row=0, column=2, padx=(0, 100), pady=(120, 5), sticky=EW)
+    editora_entry = create_entry(main_frame, "Editora...", row=1, column=2, padx=(0, 100), pady=10, sticky=EW)
 
     create_button(main_frame, "Adicionar Livro", submit_book, row=8, column=1, columnspan=1, padx=40, pady=10)
