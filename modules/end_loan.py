@@ -86,7 +86,7 @@ def end_loan(master):
     loan_id_label = create_label(master, "ID do Empréstimo", row=3, column=0, padx=0, pady=5, sticky=EW)
     loan_id_entry = create_entry(master, "ID do Empréstimo...", row=4, column=0, padx=100, pady=5, sticky=EW)
     
-    loan_end_date_label = create_label(master, "Data real de Devolução", row=3, column=len(columns)-2, padx=0, pady=5, sticky=EW)
-    loan_end_date_entry = create_entry(master, "Data real de Devolução...", row=4, column=len(columns)-2, padx=0, pady=5, sticky=EW)
+    loan_end_date_label = create_label(master, "Data real de Devolução", row=3, column=len(columns)-2, columnspan=2, padx=(0, 20), pady=5, sticky=EW)
+    loan_end_date_entry = create_entry(master, "Data real de Devolução...", row=4, column=len(columns)-2, columnspan=2, padx=(0, 30), pady=5, sticky=EW)
 
     create_button(master, "Concluir Devolução", submit_ending, row=5, column=0, columnspan=2, padx=(160, 160), pady=20)
