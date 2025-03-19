@@ -39,7 +39,7 @@ def remove_book(master):
     def restore_mainframe(main_frame):
         for widget in main_frame.winfo_children():
             widget.destroy()
-        imagem_principal = ctk.CTkImage(light_image=Image.open("assets\\imagemFramePrincipal.jpeg"), size=(500, 500))
+        imagem_principal = ctk.CTkImage(light_image=Image.open("assets/imagemFramePrincipal.jpeg"), size=(500, 500))
         label_imagem_principal = ctk.CTkLabel(master=main_frame, image=imagem_principal, text="")
         label_imagem_principal.place(relx=0.5, rely=0.5, anchor="center")
         label_citacao = ctk.CTkLabel(

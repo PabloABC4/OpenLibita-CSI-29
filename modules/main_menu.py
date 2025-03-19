@@ -27,11 +27,11 @@ def main_menu():
     title_label.pack(pady=40)
 
     buttons_data = [
-        {"icon": ctk.CTkImage(light_image=Image.open("assets\\loanbook.jpeg"), size=(20, 20)), "text": "Novo Empréstimo", "command": lambda: add_loan(main_frame)},
-        {"icon": ctk.CTkImage(light_image=Image.open("assets\\returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(main_frame)},
-        {"icon": ctk.CTkImage(light_image=Image.open("assets\\addbook.jpeg"), size=(20, 20)), "text": "Adicionar Livro", "command": lambda: add_book(main_frame)},
-        {"icon": ctk.CTkImage(light_image=Image.open("assets\\removebook.jpeg"), size=(20, 20)), "text": "Remover Livro", "command": lambda: remove_book(main_frame)},
-        {"icon": ctk.CTkImage(light_image=Image.open("assets\\alunos.jpeg"), size=(20, 20)), "text": "Lista de Alunos", "command": show_students},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/loanbook.jpeg"), size=(20, 20)), "text": "Novo Empréstimo", "command": lambda: add_loan(main_frame)},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(main_frame)},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/addbook.jpeg"), size=(20, 20)), "text": "Adicionar Livro", "command": lambda: add_book(main_frame)},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/removebook.jpeg"), size=(20, 20)), "text": "Remover Livro", "command": lambda: remove_book(main_frame)},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/alunos.jpeg"), size=(20, 20)), "text": "Lista de Alunos", "command": show_students},
     ]
 
     for button_data in buttons_data:
@@ -69,7 +69,7 @@ def main_menu():
     main_frame.pack(side="right", expand=True, fill="both")
 
     # Carrega a imagem principal (substitua 'caminho_para_imagem_principal.png' pelo caminho da imagem)
-    imagem_principal = ctk.CTkImage(light_image=Image.open("assets\\imagemFramePrincipal.jpeg"), size=(500, 500))
+    imagem_principal = ctk.CTkImage(light_image=Image.open("assets/imagemFramePrincipal.jpeg"), size=(500, 500))
     label_imagem_principal = ctk.CTkLabel(master=main_frame, image=imagem_principal, text="")
     label_imagem_principal.place(relx=0.5, rely=0.5, anchor="center")  # Centraliza a imagem
 
