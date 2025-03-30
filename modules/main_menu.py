@@ -8,6 +8,7 @@ from modules.remove_book import remove_book
 from modules.add_loan import add_loan
 from modules.end_loan import end_loan
 from modules.show_students import show_students
+from modules.add_student import add_student
 
 def main_menu():
     # Configurações iniciais
@@ -31,7 +32,8 @@ def main_menu():
         {"icon": ctk.CTkImage(light_image=Image.open("assets/returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(main_frame)},
         {"icon": ctk.CTkImage(light_image=Image.open("assets/addbook.jpeg"), size=(20, 20)), "text": "Adicionar Livro", "command": lambda: add_book(main_frame)},
         {"icon": ctk.CTkImage(light_image=Image.open("assets/removebook.jpeg"), size=(20, 20)), "text": "Remover Livro", "command": lambda: remove_book(main_frame)},
-        {"icon": ctk.CTkImage(light_image=Image.open("assets/alunos.jpeg"), size=(20, 20)), "text": "Lista de Alunos", "command": show_students},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/alunos.jpeg"), size=(20, 20)), "text": "Lista de Alunos", "command": lambda: show_students(main_frame)},
+        {"icon": ctk.CTkImage(light_image=Image.open("assets/alunos.jpeg"), size=(20, 20)), "text": "Adicionar Aluno", "command": lambda: add_student(main_frame)},
     ]
 
     for button_data in buttons_data:

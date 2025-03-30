@@ -1,59 +1,51 @@
 from tkinter import *
 from tkinter import ttk, messagebox
-from modules.common import create_button, create_label, create_entry
+from modules.common import create_button, create_label, create_entry, Pagination
 import modules.backend as backend
+import customtkinter as ctk
+from PIL import Image
 
-def show_students():
+def format_student(student):
+    return (
+        student[0],
+        student[1],
+        student[2],
+        student[3]
+    )
+
+def show_students(main_frame):
     """
-    Fetches and displays a list of students from the backend in a new window.
+    Fetches and displays a list of students from the backend in the main frame.
 
     If no students are found or an error occurs, appropriate message boxes are shown.
+    
+    Args:
+        main_frame: The main frame where student list will be displayed
     """
-    students, columns = backend.get_students()
-    if isinstance(students, str):
-        messagebox.showerror("Erro", students)
-        return
+    def restaurar_frame_principal(main_frame):
+        for widget in main_frame.winfo_children():
+            widget.destroy()
+        imagem_principal = ctk.CTkImage(light_image=Image.open("assets/imagemFramePrincipal.jpeg"), size=(500, 500))
+        label_imagem_principal = ctk.CTkLabel(master=main_frame, image=imagem_principal, text="")
+        label_imagem_principal.place(relx=0.5, rely=0.5, anchor="center")
 
-    if not students:
-        messagebox.showinfo("Info", "Nenhum aluno encontrado no banco de dados.")
-        return
-
-    new_root = Toplevel()
-    new_root.title('Lista de Alunos')
-    new_root.geometry("1300x400")
-
-    def display_students():
-        current_page_students = students[students_per_page*page_index: students_per_page*(page_index+1)]
-        for student in current_page_students:
-            formatted_student = (
-                student[0],
-                student[1],
-                student[2],
-                student[3],
-            )
-            tree.insert('', END, values=formatted_student)
-            
-        previous_page_button.configure(state="normal" if page_index > 0 else "disabled")
-        next_page_button.configure(state="normal" if students_per_page * (page_index + 1) < len(students) else "disabled")
-
-    def next_page():
-        for item in tree.get_children():
-            tree.delete(item)
-        nonlocal page_index
-        page_index += 1
-        display_students()
-
-    def previous_page():
-        for item in tree.get_children():
-            tree.delete(item)
-        nonlocal page_index
-        page_index -= 1
-        display_students()
+        label_citacao = ctk.CTkLabel(
+            master=main_frame,
+            text='"A educação é a arma mais poderosa que você pode usar para mudar o mundo"\nNelson Mandela',
+            font=("Roboto", 16, 'italic'),
+            text_color="black",
+            justify="left"
+        )
+        label_citacao.pack(side="bottom", padx=20, pady=20, anchor="se")
 
     def show_student_loans():
         student_id = student_id_entry.get()
         if not student_id:
             messagebox.showerror("Erro", "ID do aluno é obrigatório.")
+            return
+
+        if student_id not in [str(student[0]) for student in students]:
+            messagebox.showerror("Erro", "ID de Aluno não encontrado.")
             return
 
         loans = backend.get_student_loans(student_id)
@@ -65,16 +57,17 @@ def show_students():
             messagebox.showinfo("Info", "Nenhum empréstimo encontrado para este aluno.")
             return
 
+        # Aqui continuamos usando uma janela popup para empréstimos
         loans_window = Toplevel()
         loans_window.title('Empréstimos do Aluno')
         loans_window.geometry("900x400")
 
         columns = ('ID Empréstimo', 'ID Livro', 'Data Empréstimo', 'Data Prevista Devolução', 'Data Devolução', 'Finalizado')
-        tree = ttk.Treeview(loans_window, columns=columns, show='headings')
+        loan_tree = ttk.Treeview(loans_window, columns=columns, show='headings')
         for col in columns:
-            tree.heading(col, text=col)
-            tree.column(col, width=150, anchor=CENTER)
-        tree.pack(expand=True, fill=BOTH)
+            loan_tree.heading(col, text=col)
+            loan_tree.column(col, width=150, anchor=CENTER)
+        loan_tree.pack(expand=True, fill=BOTH)
 
         for loan in loans:
             formatted_loan = (
@@ -85,28 +78,30 @@ def show_students():
                 loan[4].strftime('%d/%m/%Y') if loan[4] else '',
                 'Sim' if loan[5] else 'Não'
             )
-            tree.insert('', END, values=formatted_loan)
+            loan_tree.insert('', END, values=formatted_loan)
 
-    page_index = 0
-    students_per_page = 10
+    # Limpa o frame principal
+    for widget in main_frame.winfo_children():
+        widget.destroy()
+        
+    students, columns = backend.get_students()
+    if isinstance(students, str):
+        messagebox.showerror("Erro", students)
+        return
 
-    tree = ttk.Treeview(new_root, columns=columns, show='headings')
-    for col in columns:
-        tree.heading(col, text=col)
-        tree.column(col, width=150 if col != "email_aluno" else 200, anchor=CENTER)
-    tree.grid(row=0, column=0, columnspan=3, padx=10, pady=5)
-
-    previous_page_button = create_button(new_root, "Página Anterior", previous_page, row=1, column=0, pady=10, padx=(10, 5))
-    next_page_button = create_button(new_root, "Próxima Página", next_page, row=1, column=2, pady=10, padx=(5, 10))
-
-    student_id_label = create_label(new_root, "ID do Aluno", row=3, column=0, padx=10, pady=5, sticky=E)
-    student_id_entry = create_entry(new_root, "ID do Aluno...", row=3, column=1, padx=5, pady=5, sticky=EW)
-
-    create_button(new_root, "Mostrar Empréstimos", show_student_loans, row=3, column=2, padx=20, pady=5, sticky=W)
-
-    # Configure column widths
-    new_root.grid_columnconfigure(0, weight=5)
-    new_root.grid_columnconfigure(1, weight=1)
-    new_root.grid_columnconfigure(2, weight=5)
-
-    display_students()
+    if not students:
+        messagebox.showinfo("Info", "Nenhum aluno encontrado no banco de dados.")
+        restaurar_frame_principal(main_frame)
+        return
+    
+    # Usar o componente Pagination, assim como na página de remover livros
+    students_per_page = 5
+    column_widths = [100, 200, 300, 150]  # Larguras para cada coluna
+    students_pagination = Pagination(main_frame, students, columns, students_per_page, format_student, column_widths=column_widths)
+    
+    # Adicionar entrada para consulta de empréstimos de aluno
+    student_id_label = create_label(main_frame, "ID do Aluno", row=3, column=0, padx=(80, 0), pady=(20, 5), sticky=E)
+    student_id_entry = create_entry(main_frame, "Digite o ID do Aluno", row=3, column=1, padx=(80, 0), pady=(20, 5), sticky=W)
+    
+    # Botão para mostrar empréstimos
+    create_button(main_frame, "Mostrar Empréstimos", show_student_loans, row=4, column=0, padx=(160, 160), pady=20, sticky=EW, columnspan=9)
