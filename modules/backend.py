@@ -50,6 +50,19 @@ def add_book(title, editora):
     except Exception as e:
         return str(e)
 
+def add_student(nome, email, telefone):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO Alunos (nome_aluno, email_aluno, telefone_celular) OUTPUT INSERTED.id_aluno VALUES (?, ?, ?)', 
+                       (nome, email, telefone))
+        student_id = cursor.fetchone()[0]
+        conn.commit()
+        conn.close()
+        return student_id
+    except Exception as e:
+        return str(e)
+
 def remove_book(book_id):
     try:
         conn = get_connection()

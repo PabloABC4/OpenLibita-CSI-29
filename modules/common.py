@@ -20,7 +20,7 @@ def create_entry(master, placeholder_text, row=0, column=0, columnspan=1, padx=0
     entry.grid(row=row, column=column, columnspan=columnspan, padx=padx, pady=pady, sticky=sticky)
     return entry
 
-def create_button(master, text, command, row=0, column=0, columnspan=1, padx=0, pady=0, sticky=""):
+def create_button(master, text, command, row=None, column=None, columnspan=1, padx=0, pady=0, sticky=""):
     button = ctk.CTkButton(
         master,
         text=text,
@@ -33,7 +33,8 @@ def create_button(master, text, command, row=0, column=0, columnspan=1, padx=0, 
         border_color=BUTTONBORDERCOLOR,
         command=command
     )
-    button.grid(row=row, column=column, columnspan=columnspan, padx=padx, pady=pady, sticky=sticky)
+    if row is not None and column is not None:
+        button.grid(row=row, column=column, columnspan=columnspan, padx=padx, pady=pady, sticky=sticky)
     return button
 
 class Pagination:
