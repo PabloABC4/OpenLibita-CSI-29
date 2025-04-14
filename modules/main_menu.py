@@ -27,6 +27,37 @@ def main_menu():
     title_label = ctk.CTkLabel(master=frame_menu, text="Bem-Vindo à Biblioteca!", font=("Roboto", 20, 'bold'), text_color="black", wraplength=230)  # Ajuste de wraplength se necessário
     title_label.pack(pady=40)
 
+    # Frame principal da tela
+    main_frame = ctk.CTkFrame(master=root, fg_color="#F2F2F2")
+    main_frame.pack(side="right", expand=True, fill="both")
+
+    # Variável para armazenar a referência ao botão ativo
+    active_button = None
+    active_frame = None
+    ACTIVE_COLOR = "#b8c286"  # Cor mais clara para o botão ativo
+    NORMAL_COLOR = "#FDFFEC"  # Cor normal dos botões
+    HOVER_COLOR = "#EEF0D8"   # Cor ao passar o mouse
+
+    # Função para ativar um botão e desativar os outros
+    def activate_button(frame, button, command):
+        nonlocal active_button, active_frame
+        
+        # Restaura o estilo do botão ativo anterior
+        if active_button and active_frame:
+            active_frame.configure(fg_color=NORMAL_COLOR)
+            active_button.configure(fg_color=NORMAL_COLOR, hover_color=HOVER_COLOR)
+        
+        # Define o novo botão ativo
+        active_button = button
+        active_frame = frame
+        
+        # Aplica o estilo ativo
+        frame.configure(fg_color=ACTIVE_COLOR)
+        button.configure(fg_color=ACTIVE_COLOR, hover_color=ACTIVE_COLOR)
+        
+        # Executa o comando associado ao botão
+        command()
+
     buttons_data = [
         {"icon": ctk.CTkImage(light_image=Image.open("assets/loanbook.jpeg"), size=(20, 20)), "text": "Novo Empréstimo", "command": lambda: add_loan(main_frame)},
         {"icon": ctk.CTkImage(light_image=Image.open("assets/returnbook.jpeg"), size=(20, 20)), "text": "Devolução de Livro", "command": lambda: end_loan(main_frame)},
@@ -36,26 +67,32 @@ def main_menu():
         {"icon": ctk.CTkImage(light_image=Image.open("assets/alunos.jpeg"), size=(20, 20)), "text": "Adicionar Aluno", "command": lambda: add_student(main_frame)},
     ]
 
-    for button_data in buttons_data:
-        frame_button = ctk.CTkFrame(master=frame_menu, fg_color="#FDFFEC", corner_radius=0)
-        frame_button.pack(fill="x", pady=5)
+    button_list = []  # Lista para armazenar referências aos botões
 
+    for index, button_data in enumerate(buttons_data):
+        frame_button = ctk.CTkFrame(master=frame_menu, fg_color=NORMAL_COLOR, corner_radius=0)
+        frame_button.pack(fill="x", pady=5)
+        
+        # Criar uma função de comando que ativa o botão e executa o comando original
+        command_func = button_data["command"]
+        
         button = ctk.CTkButton(
             master=frame_button,
             text="      " + button_data["text"],  # Adiciona espaços em branco para simular o espaçamento
             font=("Roboto", 16),
             width=260,
             height=40,  # Ajuste a largura para acompanhar a sidebar
-            fg_color="#FDFFEC",  # Cor do botão igual à do retângulo
-            hover_color="#EEF0D8",  # Cor ao passar o mouse
+            fg_color=NORMAL_COLOR,  # Cor do botão igual à do retângulo
+            hover_color=HOVER_COLOR,  # Cor ao passar o mouse
             corner_radius=0,  # Deixar os botões sem cantos arredondados para uniformidade
             text_color="black",
             anchor="w",  # Alinha o texto à esquerda
             image=button_data["icon"],  # Adiciona o ícone ao botão
             compound="left", # Posiciona o ícone à esquerda do texto
-            command=button_data["command"]
+            command=lambda f=frame_button, b=index, cmd=command_func: activate_button(f, button_list[b], cmd)
         )
         button.pack(fill="x", pady=0)  # Preenchimento horizontal e espaçamento menor entre os botões
+        button_list.append(button)
 
     # Texto no final do menu
     credit_label = ctk.CTkLabel(
@@ -65,10 +102,6 @@ def main_menu():
         text_color="black"
     )
     credit_label.pack(pady=10, side="bottom")
-
-    # Frame principal da tela
-    main_frame = ctk.CTkFrame(master=root, fg_color="#F2F2F2")
-    main_frame.pack(side="right", expand=True, fill="both")
 
     # Carrega a imagem principal (substitua 'caminho_para_imagem_principal.png' pelo caminho da imagem)
     imagem_principal = ctk.CTkImage(light_image=Image.open("assets/imagemFramePrincipal.jpeg"), size=(500, 500))

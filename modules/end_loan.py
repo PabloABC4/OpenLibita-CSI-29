@@ -53,6 +53,64 @@ def end_loan(master):
             messagebox.showinfo("Sucesso", "Empréstimo concluído com sucesso.")
             restore_mainframe(master)
     
+    def extend_deadline():
+        loan_id = loan_id_entry.get()
+        
+        if not loan_id:
+            messagebox.showerror("Erro", "ID do empréstimo é obrigatório.")
+            return
+
+        if loan_id not in [str(loan[0]) for loan in loans]:
+            messagebox.showerror("Erro", "ID de Empréstimo não encontrado.")
+            return
+            
+        # Abrir janela para estender o prazo
+        extend_window = Toplevel()
+        extend_window.title('Estender Prazo de Devolução')
+        extend_window.geometry("400x200")
+        
+        extend_window.grid_columnconfigure(0, weight=1)
+        extend_window.grid_columnconfigure(1, weight=2)
+        
+        # Encontrar o empréstimo atual
+        current_loan = None
+        for loan in loans:
+            if str(loan[0]) == loan_id:
+                current_loan = loan
+                break
+        
+        # Mostrar a data atual de devolução prevista
+        current_date_label = create_label(extend_window, "Data atual:", row=0, column=0, padx=10, pady=10, sticky=E)
+        current_date_value = current_loan[4].strftime('%d/%m/%Y')
+        current_date_info = create_label(extend_window, current_date_value, row=0, column=1, padx=10, pady=10, sticky=W)
+        
+        # Campo para a nova data
+        new_date_label = create_label(extend_window, "Nova data:", row=1, column=0, padx=10, pady=10, sticky=E)
+        new_date_entry = create_entry(extend_window, "DD/MM/AAAA", row=1, column=1, padx=10, pady=10, sticky=W)
+        new_date_entry.insert(0, current_date_value)  # Preenche com a data atual como sugestão
+        
+        def save_extension():
+            new_deadline = new_date_entry.get()
+            
+            try:
+                # Converter a data para o formato correto
+                new_deadline = datetime.strptime(new_deadline, '%d/%m/%Y').strftime('%Y-%m-%d')
+            except ValueError:
+                messagebox.showerror("Erro", "Data inválida. Use o formato DD/MM/AAAA.")
+                return
+            
+            result = backend.extend_loan_deadline(loan_id, new_deadline)
+            if isinstance(result, str):
+                messagebox.showerror("Erro", result)
+            else:
+                messagebox.showinfo("Sucesso", "Prazo de devolução estendido com sucesso.")
+                extend_window.destroy()
+                # Atualizar a lista de empréstimos
+                end_loan(master)
+        
+        # Botão para salvar as alterações
+        save_button = create_button(extend_window, "Salvar Alterações", save_extension, row=2, column=0, columnspan=2, padx=20, pady=20)
+    
     def restore_mainframe(main_frame):
         for widget in main_frame.winfo_children():
             widget.destroy()
@@ -91,4 +149,9 @@ def end_loan(master):
     loan_end_date_label = create_label(master, "Data real de Devolução", row=3, column=len(columns)-2, columnspan=2, padx=(0, 20), pady=5, sticky=EW)
     loan_end_date_entry = create_entry(master, "Data real de Devolução...", row=4, column=len(columns)-2, columnspan=2, padx=(0, 30), pady=5, sticky=EW)
 
-    create_button(master, "Concluir Devolução", submit_ending, row=5, column=0, columnspan=2, padx=(160, 160), pady=20)
+    # Botões para concluir devolução e estender prazo
+    button_frame = Frame(master)
+    button_frame.grid(row=5, column=0, columnspan=len(columns), pady=20)
+    
+    create_button(master, "Concluir Devolução", submit_ending, row=5, column=0, columnspan=len(columns)//2, padx=(100, 10), pady=20)
+    create_button(master, "Estender Prazo", extend_deadline, row=5, column=len(columns)//2, columnspan=len(columns)//2, padx=(10, 100), pady=20)

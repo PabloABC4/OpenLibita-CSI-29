@@ -144,3 +144,35 @@ def get_student_loans(student_id):
         return loans
     except Exception as e:
         return str(e)
+
+def update_student(student_id, nome, email, telefone):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute('UPDATE Alunos SET nome_aluno = ?, email_aluno = ?, telefone_celular = ? WHERE id_aluno = ?', 
+                      (nome, email, telefone, student_id))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        return str(e)
+
+def extend_loan_deadline(loan_id, new_deadline):
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        
+        # Verificar se o empréstimo existe e não foi finalizado
+        cursor.execute('SELECT 1 FROM Emprestimos WHERE id_emprestimo = ? AND finalizado = 0', (loan_id,))
+        if not cursor.fetchone():
+            conn.close()
+            return "Empréstimo não encontrado ou já finalizado."
+        
+        # Atualizar a data prevista de devolução
+        cursor.execute('UPDATE Emprestimos SET data_prevista_devolucao = ? WHERE id_emprestimo = ?', 
+                      (new_deadline, loan_id))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        return str(e)

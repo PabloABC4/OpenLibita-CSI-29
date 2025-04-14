@@ -19,6 +19,11 @@ def add_student(main_frame):
     for widget in main_frame.winfo_children():
         widget.destroy()
 
+    # Configuração do grid para centralizar elementos
+    main_frame.grid_columnconfigure(0, weight=1)  # Espaço à esquerda
+    main_frame.grid_columnconfigure(1, weight=2)  # Coluna central para os campos
+    main_frame.grid_columnconfigure(2, weight=1)  # Espaço à direita
+
     def submit_student():
         nome = nome_entry.get()
         email = email_entry.get()
@@ -52,13 +57,24 @@ def add_student(main_frame):
         )
         label_citacao.pack(side="bottom", padx=20, pady=20, anchor="se")
 
-    nome_label = create_label(main_frame, "Nome do Aluno", row=0, column=0, padx=(120, 0), pady=(120, 5), sticky=EW)
-    nome_entry = create_entry(main_frame, "Nome completo...", row=1, column=0, padx=(120, 0), pady=10, sticky=EW)
-    
-    email_label = create_label(main_frame, "Email", row=2, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
-    email_entry = create_entry(main_frame, "Email...", row=3, column=0, padx=(120, 0), pady=10, sticky=EW)
-    
-    telefone_label = create_label(main_frame, "Telefone", row=4, column=0, padx=(120, 0), pady=(10, 5), sticky=EW)
-    telefone_entry = create_entry(main_frame, "Telefone...", row=5, column=0, padx=(120, 0), pady=10, sticky=EW)
+    # Título
+    titulo_label = ctk.CTkLabel(
+        master=main_frame,
+        text="Adicionar Novo Aluno",
+        font=("Roboto", 24, 'bold'),
+        text_color="black"
+    )
+    titulo_label.grid(row=0, column=1, pady=(50, 30), sticky="ew")
 
-    create_button(main_frame, "Adicionar Aluno", submit_student, row=6, column=0, columnspan=1, padx=(120, 0), pady=30)
+    # Campos de formulário centralizados na coluna 1
+    nome_label = create_label(main_frame, "Nome do Aluno", row=1, column=1, pady=(10, 5), sticky="w")
+    nome_entry = create_entry(main_frame, "Nome completo...", row=2, column=1, pady=5, sticky="ew")
+    
+    email_label = create_label(main_frame, "Email", row=3, column=1, pady=(15, 5), sticky="w")
+    email_entry = create_entry(main_frame, "Email...", row=4, column=1, pady=5, sticky="ew")
+    
+    telefone_label = create_label(main_frame, "Telefone", row=5, column=1, pady=(15, 5), sticky="w")
+    telefone_entry = create_entry(main_frame, "Telefone...", row=6, column=1, pady=5, sticky="ew")
+
+    # Botão centralizado
+    create_button(main_frame, "Adicionar Aluno", submit_student, row=7, column=1, pady=30, sticky="ew")
